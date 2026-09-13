@@ -171,7 +171,7 @@ func TestPageSpecFromJSON(t *testing.T) {
 		],
 		"navigation": {
 			"items": [{"id": "chat", "label": "Chat", "icon": "message-circle"}],
-			"position": "left"
+			"type": "left"
 		}
 	}`
 
@@ -204,7 +204,7 @@ func TestPageSpecFromJSON(t *testing.T) {
 	if page.Navigation == nil {
 		t.Fatal("Navigation is nil")
 	}
-	if page.Navigation.Position != "left" {
-		t.Errorf("Navigation.Position = %q, want %q", page.Navigation.Position, "left")
+	if page.Navigation.Type != "left" {
+		t.Errorf("Navigation.Type = %q, want %q", page.Navigation.Type, "left")
 	}
 }

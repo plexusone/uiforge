@@ -212,7 +212,7 @@
         "icon": {
           "type": "string"
         },
-        "href": {
+        "target": {
           "type": "string"
         },
         "children": {
@@ -230,6 +230,9 @@
     },
     "NavigationSpec": {
       "properties": {
+        "type": {
+          "type": "string"
+        },
         "items": {
           "items": {
             "$ref": "#/$defs/NavItem"
@@ -241,9 +244,6 @@
             "$ref": "#/$defs/NavItem"
           },
           "type": "array"
-        },
-        "position": {
-          "type": "string"
         }
       },
       "additionalProperties": false,
