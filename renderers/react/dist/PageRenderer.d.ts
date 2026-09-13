@@ -25,6 +25,7 @@ export interface PageRendererProps {
     dataSources?: DataSourceConnector[];
     onInteraction?: (componentId: string, event: string, data?: Record<string, unknown>) => void;
     capabilities?: string[];
+    mode?: string;
 }
-export declare function PageRenderer({ page, className, style, onError, initialState, dataSources: dataSourceConnectors, onInteraction, capabilities, }: PageRendererProps): React.ReactElement;
+export declare function PageRenderer({ page, className, style, onError, initialState, dataSources: dataSourceConnectors, onInteraction, capabilities, mode, }: PageRendererProps): React.ReactElement;
 //# sourceMappingURL=PageRenderer.d.ts.map

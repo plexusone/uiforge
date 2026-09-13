@@ -25,7 +25,7 @@ const labelStyle = {
     color: 'var(--uiforge-text-muted, #64748b)',
 };
 const controlStyle = {
-    padding: '6px 10px',
+    padding: 'calc(6px * var(--uiforge-density, 1)) calc(10px * var(--uiforge-density, 1))',
     border: '1px solid var(--uiforge-border, #cbd5e1)',
     borderRadius: 'var(--uiforge-radius, 0.375rem)',
     background: 'var(--uiforge-surface, #ffffff)',
@@ -98,8 +98,8 @@ export function renderForm(instance, ctx, children) {
     const style = {
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
-        padding: '16px',
+        gap: 'calc(12px * var(--uiforge-density, 1))',
+        padding: 'calc(16px * var(--uiforge-density, 1))',
         border: '1px solid var(--uiforge-border, #e2e8f0)',
         borderRadius: 'var(--uiforge-radius, 0.5rem)',
         background: 'var(--uiforge-surface, #ffffff)',

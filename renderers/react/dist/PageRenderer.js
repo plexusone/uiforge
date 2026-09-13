@@ -11,7 +11,7 @@ export const UIForgeContext = React.createContext(null);
 export function useUIForge() {
     return React.useContext(UIForgeContext);
 }
-export function PageRenderer({ page, className, style, onError, initialState, dataSources: dataSourceConnectors, onInteraction, capabilities, }) {
+export function PageRenderer({ page, className, style, onError, initialState, dataSources: dataSourceConnectors, onInteraction, capabilities, mode, }) {
     const [, forceRender] = React.useReducer((x) => x + 1, 0);
     const dataCache = React.useRef(new Map());
     const cacheKeyRef = React.useRef([]);
@@ -113,7 +113,8 @@ export function PageRenderer({ page, className, style, onError, initialState, da
         data: resolveInstanceData,
         hasCapability,
     };
-    const themeStyle = buildThemeStyle(page.theme);
+    const effectiveMode = mode ?? page.theme?.variant;
+    const themeStyle = buildThemeStyle(page.theme, effectiveMode);
     const mergedStyle = { ...themeStyle, ...style };
     function renderComponent(instance) {
         if (instance.visibility?.condition) {
@@ -146,14 +147,18 @@ export function PageRenderer({ page, className, style, onError, initialState, da
         const children = instance.children?.map(renderComponent);
         return (_jsx(ErrorBoundary, { componentId: instance.id, onError: onError, children: _jsx(Component, { instance: instance, children: children }) }, instance.id));
     }
-    return (_jsx(UIForgeContext.Provider, { value: ctx, children: _jsx("div", { className: className, style: mergedStyle, "data-uiforge-page": page.metadata.id, "data-uiforge-profile": page.profile, children: _jsx(Layout, { layout: page.layout, components: page.components, renderComponent: renderComponent, navigation: page.navigation, onNavigate: (item) => ctx.dispatch('navigation', 'select', item) }) }) }));
+    return (_jsx(UIForgeContext.Provider, { value: ctx, children: _jsx("div", { className: className, style: mergedStyle, "data-uiforge-page": page.metadata.id, "data-uiforge-profile": page.profile, "data-uiforge-mode": effectiveMode, "data-uiforge-density": page.theme?.density, children: _jsx(Layout, { layout: page.layout, components: page.components, renderComponent: renderComponent, navigation: page.navigation, onNavigate: (item) => ctx.dispatch('navigation', 'select', item) }) }) }));
 }
-function buildThemeStyle(theme) {
-    if (!theme?.tokens)
+function buildThemeStyle(theme, mode) {
+    if (!theme)
         return {};
     const style = {};
-    for (const [key, value] of Object.entries(theme.tokens)) {
+    const effective = { ...(theme.tokens ?? {}), ...(mode ? (theme.modes?.[mode] ?? {}) : {}) };
+    for (const [key, value] of Object.entries(effective)) {
         style[`--uiforge-${key}`] = value;
+    }
+    if (theme.density === 'compact') {
+        style['--uiforge-density'] = '0.75';
     }
     return style;
 }

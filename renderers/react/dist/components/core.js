@@ -36,7 +36,7 @@ export function CoreButton({ instance }) {
     const disabled = instance.properties?.disabled === true;
     const style = {
         ...(buttonVariants[variant] ?? buttonVariants.primary),
-        padding: '8px 16px',
+        padding: 'calc(8px * var(--uiforge-density, 1)) calc(16px * var(--uiforge-density, 1))',
         borderRadius: 'var(--uiforge-radius, 0.375rem)',
         cursor: disabled ? 'not-allowed' : 'pointer',
         fontFamily: 'var(--uiforge-font-family, system-ui, sans-serif)',
@@ -50,7 +50,7 @@ export function CoreCard({ instance, children }) {
         border: '1px solid var(--uiforge-border, #e2e8f0)',
         borderRadius: 'var(--uiforge-radius, 0.5rem)',
         background: 'var(--uiforge-surface, #ffffff)',
-        padding: String(instance.properties?.padding ?? '16px'),
+        padding: String(instance.properties?.padding ?? 'calc(16px * var(--uiforge-density, 1))'),
         fontFamily: 'var(--uiforge-font-family, system-ui, sans-serif)',
     };
     return (_jsxs("div", { "data-uiforge-component": instance.id, style: style, children: [title ? _jsx("h3", { style: { margin: '0 0 4px', fontSize: '1rem' }, children: String(title) }) : null, subtitle ? (_jsx("p", { style: {

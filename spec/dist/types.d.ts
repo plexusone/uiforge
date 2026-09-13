@@ -108,5 +108,7 @@ export interface ThemeRef {
     id: string;
     variant?: string;
     tokens?: Record<string, string>;
+    modes?: Record<string, Record<string, string>>;
+    density?: 'comfortable' | 'compact';
 }
 //# sourceMappingURL=types.d.ts.map

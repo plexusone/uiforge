@@ -17,6 +17,7 @@ export declare class UIForgePage extends LitElement {
         capabilities: {
             attribute: boolean;
         };
+        mode: {};
         _activeTab: {
             state: boolean;
         };
@@ -25,6 +26,7 @@ export declare class UIForgePage extends LitElement {
     initialState: Record<string, unknown> | undefined;
     dataSources: DataSourceConnector[] | undefined;
     capabilities: string[] | undefined;
+    mode: string | undefined;
     _activeTab: string;
     state: PageState;
     engine: InteractionEngine;

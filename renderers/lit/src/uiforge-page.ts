@@ -27,6 +27,7 @@ export class UIForgePage extends LitElement {
     initialState: { attribute: false },
     dataSources: { attribute: false },
     capabilities: { attribute: false },
+    mode: {},
     _activeTab: { state: true },
   }
 
@@ -34,6 +35,8 @@ export class UIForgePage extends LitElement {
   declare initialState: Record<string, unknown> | undefined
   declare dataSources: DataSourceConnector[] | undefined
   declare capabilities: string[] | undefined
+  // mode overrides the theme's default mode (ThemeRef.variant) at runtime.
+  declare mode: string | undefined
   declare _activeTab: string
 
   state: PageState
@@ -48,6 +51,7 @@ export class UIForgePage extends LitElement {
     this.initialState = undefined
     this.dataSources = undefined
     this.capabilities = undefined
+    this.mode = undefined
     this._activeTab = ''
     this.state = new PageState()
     this.engine = new InteractionEngine(this.state)
@@ -172,11 +176,14 @@ export class UIForgePage extends LitElement {
     if (!page) {
       return nothing
     }
+    const mode = this.mode ?? page.theme?.variant
     return html`
       <div
-        style=${styleMap(buildThemeStyle(page.theme))}
+        style=${styleMap(buildThemeStyle(page.theme, mode))}
         data-uiforge-page=${page.metadata.id}
         data-uiforge-profile=${page.profile ?? nothing}
+        data-uiforge-mode=${mode ?? nothing}
+        data-uiforge-density=${page.theme?.density ?? nothing}
       >
         ${this.renderLayout(page.layout, page.components)}
       </div>
@@ -446,11 +453,15 @@ export class UIForgePage extends LitElement {
   }
 }
 
-function buildThemeStyle(theme?: ThemeRef): Record<string, string> {
-  if (!theme?.tokens) return {}
+function buildThemeStyle(theme?: ThemeRef, mode?: string): Record<string, string> {
+  if (!theme) return {}
   const style: Record<string, string> = {}
-  for (const [key, value] of Object.entries(theme.tokens)) {
+  const effective = { ...(theme.tokens ?? {}), ...(mode ? (theme.modes?.[mode] ?? {}) : {}) }
+  for (const [key, value] of Object.entries(effective)) {
     style[`--uiforge-${key}`] = value
+  }
+  if (theme.density === 'compact') {
+    style['--uiforge-density'] = '0.75'
   }
   return style
 }

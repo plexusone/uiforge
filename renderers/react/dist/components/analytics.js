@@ -9,7 +9,7 @@ import { DataStatus, dataPending, propOf, resolveBoundData, writeBinding } from 
 const cardStyle = {
     border: '1px solid var(--uiforge-border, #e2e8f0)',
     borderRadius: '8px',
-    padding: '12px',
+    padding: 'calc(12px * var(--uiforge-density, 1))',
     fontFamily: 'var(--uiforge-font-family, system-ui, sans-serif)',
     background: 'var(--uiforge-surface, #ffffff)',
 };

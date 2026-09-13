@@ -43,6 +43,8 @@ export interface PageRendererProps {
   // unrestricted; present means the data runtime requires data.read and
   // state-writing controls require state.write.
   capabilities?: string[]
+  // mode overrides the theme's default mode (ThemeRef.variant) at runtime.
+  mode?: string
 }
 
 export function PageRenderer({
@@ -54,6 +56,7 @@ export function PageRenderer({
   dataSources: dataSourceConnectors,
   onInteraction,
   capabilities,
+  mode,
 }: PageRendererProps): React.ReactElement {
   const [, forceRender] = React.useReducer((x: number) => x + 1, 0)
   const dataCache = React.useRef(new Map<string, DataResolution>())
@@ -174,7 +177,8 @@ export function PageRenderer({
     hasCapability,
   }
 
-  const themeStyle = buildThemeStyle(page.theme)
+  const effectiveMode = mode ?? page.theme?.variant
+  const themeStyle = buildThemeStyle(page.theme, effectiveMode)
   const mergedStyle = { ...themeStyle, ...style }
 
   function renderComponent(instance: ComponentInstance): React.ReactNode {
@@ -229,6 +233,8 @@ export function PageRenderer({
         style={mergedStyle}
         data-uiforge-page={page.metadata.id}
         data-uiforge-profile={page.profile}
+        data-uiforge-mode={effectiveMode}
+        data-uiforge-density={page.theme?.density}
       >
         <Layout
           layout={page.layout}
@@ -242,11 +248,15 @@ export function PageRenderer({
   )
 }
 
-function buildThemeStyle(theme?: ThemeRef): React.CSSProperties {
-  if (!theme?.tokens) return {}
+function buildThemeStyle(theme?: ThemeRef, mode?: string): React.CSSProperties {
+  if (!theme) return {}
   const style: Record<string, string> = {}
-  for (const [key, value] of Object.entries(theme.tokens)) {
+  const effective = { ...(theme.tokens ?? {}), ...(mode ? (theme.modes?.[mode] ?? {}) : {}) }
+  for (const [key, value] of Object.entries(effective)) {
     style[`--uiforge-${key}`] = value
+  }
+  if (theme.density === 'compact') {
+    style['--uiforge-density'] = '0.75'
   }
   return style
 }

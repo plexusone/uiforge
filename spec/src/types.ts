@@ -129,4 +129,10 @@ export interface ThemeRef {
   id: string
   variant?: string
   tokens?: Record<string, string>
+  // Per-mode token overlays (e.g. light, dark) applied over tokens at render
+  // time; variant names the default mode and renderers can switch at runtime.
+  modes?: Record<string, Record<string, string>>
+  // Spacing density: 'comfortable' (default) or 'compact'. Renderers surface
+  // it as data-uiforge-density and a --uiforge-density scale factor.
+  density?: 'comfortable' | 'compact'
 }
