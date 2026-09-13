@@ -9,7 +9,7 @@ This guide covers building your own UIForge components — the same contract the
 Pages never reference your code — they reference your registered type. That separation is what makes specs portable, validatable, and AI-generatable.
 
 !!! note "Trust model"
-    Registered components today run as **trusted native code** in the host page. Declare `capabilities` in your manifest now (they document intent and are validated structurally); runtime capability enforcement and sandboxed execution for untrusted components are roadmapped (RMI-UIFORGE-123/124).
+    Registered components run as **trusted native code** in the host page, but capabilities have teeth: profiles bound what components may declare (`ValidatePage` rejects violations), and when the host passes a runtime grant set (`capabilities` on `PageRenderer` / `<uiforge-page>`), the data runtime refuses connector fetches without `data.read` and `writeBinding` refuses state writes without `state.write`. Check `ctx.hasCapability(name)` for gates of your own. Sandboxed execution for untrusted components is roadmapped (RMI-UIFORGE-124).
 
 ## 1. The manifest
 

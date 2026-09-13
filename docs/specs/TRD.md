@@ -104,6 +104,16 @@ A fixture-driven conformance suite (`conformance.test.ts(x)` in each renderer pa
 
 Both renderers depend on **`@plexusone/uiforge-spec`** (`spec/`) — the renderer-independent package holding the UISpec TS types (mirroring the Go source of truth) and the framework-free runtime engines. In the repository the dependency is a `file:../../spec` link for local development; `scripts/npm-publish.sh` rewrites it to a semver range at publish time, so the published packages depend on `@plexusone/uiforge-spec` from the registry. Build order in a checkout: `spec/` first, then renderers.
 
+### Capability model
+
+Capabilities govern what components may do, in three layers:
+
+1. **Declared** — a manifest lists its `capabilities` (open vocabulary; `data.read` and `state.write` are the well-known names UIForge's own machinery understands, defined as constants in `uispec` and `@plexusone/uiforge-spec`).
+2. **Profile-allowed (validation time)** — `ProfileConstraints.AllowedCapabilities` bounds what components under a profile may declare; `ValidatePage` rejects pages whose components exceed it. All builtin profiles allow `data.read` + `state.write`; hosts can tighten.
+3. **Granted (runtime)** — hosts pass a grant set to the renderer (`capabilities` prop on `PageRenderer`, `.capabilities` on `<uiforge-page>`). Absent means unrestricted (trusted-native default). When present: connector-backed bindings resolve to `data-uiforge-data-error` without `data.read` (the connector is never called), `writeBinding` skips state writes without `state.write` (events still dispatch), and components can check `ctx.hasCapability(name)` for their own gates.
+
+Sandboxed execution for untrusted components remains roadmapped (RMI-UIFORGE-124).
+
 ## Design System Integration
 
 UIForge does not define its own design-token model; it consumes **design-system-spec (DSS)** documents (`github.com/plexusone/design-system-spec`). The integration contract:
