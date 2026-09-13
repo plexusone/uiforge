@@ -5,7 +5,7 @@ export { registerApplicationComponents, renderInput, renderSelect, renderCheckbo
 export { registerAnalyticsComponents, renderMetric, renderFilter, renderTable, renderLineChart, renderBarChart, renderGauge, } from './components/analytics.js';
 export { resolveBinding, resolveData, } from '@plexusone/uiforge-spec';
 export { DataSourceRegistry } from '@plexusone/uiforge-spec';
-export { renderDataStatus, resolveBoundData } from './components/data-helpers.js';
+export { renderDataStatus, resolveBoundData, writeBinding } from './components/data-helpers.js';
 export { evaluateExpression, containsExpression, extractPaths } from '@plexusone/uiforge-spec';
 export { PageState } from '@plexusone/uiforge-spec';
 export { InteractionEngine } from '@plexusone/uiforge-spec';

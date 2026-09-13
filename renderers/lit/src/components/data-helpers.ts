@@ -42,3 +42,22 @@ export function renderDataStatus(
   }
   return null
 }
+
+// writeBinding writes a control's new value back to page state when its
+// binding points there, then dispatches the change through the page's
+// interaction rules.
+export function writeBinding(
+  instance: ComponentInstance,
+  ctx: PageContext | undefined,
+  name: string,
+  value: unknown,
+  eventName: string,
+  eventData: Record<string, unknown>,
+): void {
+  const binding = instance.data?.[name]
+  if (ctx && binding?.source === 'state') {
+    const path = binding.parameters?.path
+    if (typeof path === 'string') ctx.state.set(path, value)
+  }
+  ctx?.dispatch(instance.id, eventName, eventData)
+}

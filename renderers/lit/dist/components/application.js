@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { registerComponent } from '../registry.js';
-import { renderDataStatus, resolveBoundData } from './data-helpers.js';
+import { renderDataStatus, resolveBoundData, writeBinding } from './data-helpers.js';
 // Application component pack for the Lit renderer: input, select, checkbox,
 // form, record-detail, record-list, action-bar, badge — the form/record/
 // action primitives of the application and portal profiles. Styled entirely
@@ -12,18 +12,6 @@ function prop(instance, key, fallback) {
 }
 function boundValue(instance, ctx, name) {
     return resolveBoundData(instance, ctx, name)?.value;
-}
-// writeBinding writes a control's new value back to page state when its
-// binding points there, then dispatches the change through the page's
-// interaction rules.
-function writeBinding(instance, ctx, name, value, eventName, eventData) {
-    const binding = instance.data?.[name];
-    if (ctx && binding?.source === 'state') {
-        const path = binding.parameters?.path;
-        if (typeof path === 'string')
-            ctx.state.set(path, value);
-    }
-    ctx?.dispatch(instance.id, eventName, eventData);
 }
 const fieldStyle = {
     display: 'flex',

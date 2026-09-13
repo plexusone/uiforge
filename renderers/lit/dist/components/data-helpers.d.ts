@@ -4,4 +4,5 @@ import type { DataResolution } from '@plexusone/uiforge-spec';
 import type { ComponentInstance } from '@plexusone/uiforge-spec';
 export declare function resolveBoundData(instance: ComponentInstance, ctx: PageContext | undefined, name: string): DataResolution | undefined;
 export declare function renderDataStatus(res: DataResolution | undefined, name: string): TemplateResult | null;
+export declare function writeBinding(instance: ComponentInstance, ctx: PageContext | undefined, name: string, value: unknown, eventName: string, eventData: Record<string, unknown>): void;
 //# sourceMappingURL=data-helpers.d.ts.map

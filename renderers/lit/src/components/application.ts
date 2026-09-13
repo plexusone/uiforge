@@ -1,7 +1,7 @@
 import { html, type TemplateResult } from 'lit'
 import { styleMap } from 'lit/directives/style-map.js'
 import { registerComponent, type PageContext } from '../registry.js'
-import { renderDataStatus, resolveBoundData } from './data-helpers.js'
+import { renderDataStatus, resolveBoundData, writeBinding } from './data-helpers.js'
 import type { ComponentInstance } from '@plexusone/uiforge-spec'
 
 // Application component pack for the Lit renderer: input, select, checkbox,
@@ -20,25 +20,6 @@ function boundValue(
   name: string,
 ): unknown {
   return resolveBoundData(instance, ctx, name)?.value
-}
-
-// writeBinding writes a control's new value back to page state when its
-// binding points there, then dispatches the change through the page's
-// interaction rules.
-function writeBinding(
-  instance: ComponentInstance,
-  ctx: PageContext | undefined,
-  name: string,
-  value: unknown,
-  eventName: string,
-  eventData: Record<string, unknown>,
-): void {
-  const binding = instance.data?.[name]
-  if (ctx && binding?.source === 'state') {
-    const path = binding.parameters?.path
-    if (typeof path === 'string') ctx.state.set(path, value)
-  }
-  ctx?.dispatch(instance.id, eventName, eventData)
 }
 
 const fieldStyle = {

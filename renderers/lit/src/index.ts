@@ -42,7 +42,7 @@ export {
   type DataResolution,
 } from '@plexusone/uiforge-spec'
 export { DataSourceRegistry, type DataSourceConnector } from '@plexusone/uiforge-spec'
-export { renderDataStatus, resolveBoundData } from './components/data-helpers.js'
+export { renderDataStatus, resolveBoundData, writeBinding } from './components/data-helpers.js'
 export { evaluateExpression, containsExpression, extractPaths } from '@plexusone/uiforge-spec'
 export { PageState } from '@plexusone/uiforge-spec'
 export { InteractionEngine, type ActionHandler } from '@plexusone/uiforge-spec'
