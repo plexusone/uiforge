@@ -7,9 +7,13 @@
     "url": "git+https://github.com/plexusone/uiforge.git",
     "directory": "renderers/lit"
   },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -19,7 +23,8 @@
     "test:watch": "vitest",
     "lint": "eslint src --max-warnings 0",
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "prepublishOnly": "npm run build && npm test"
   },
   "dependencies": {
     "@plexusone/uiforge-spec": "file:../../spec",
@@ -32,5 +37,11 @@
     "typescript": "^5.3.0",
     "typescript-eslint": "^8.67.0",
     "vitest": "^3.2.4"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   }
 }
