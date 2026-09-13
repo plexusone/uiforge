@@ -1,0 +1,44 @@
+import { html, type TemplateResult } from 'lit'
+import type { PageContext } from '../registry.js'
+import type { DataResolution } from '@plexusone/uiforge-spec'
+import type { ComponentInstance } from '@plexusone/uiforge-spec'
+
+// resolveBoundData returns the page's current DataResolution for one of the
+// instance's named bindings, or undefined when rendered without a page
+// context.
+export function resolveBoundData(
+  instance: ComponentInstance,
+  ctx: PageContext | undefined,
+  name: string,
+): DataResolution | undefined {
+  if (!ctx?.data) return undefined
+  return ctx.data(instance)[name]
+}
+
+// renderDataStatus renders the shared loading/error DOM vocabulary for a
+// binding that has not settled: data-uiforge-loading while a connector fetch
+// is in flight, data-uiforge-data-error when it failed. Returns null when
+// the binding is ready (or absent) so callers fall through to their normal
+// rendering.
+export function renderDataStatus(
+  res: DataResolution | undefined,
+  name: string,
+): TemplateResult | null {
+  if (res?.status === 'loading') {
+    return html`<div
+      data-uiforge-loading=${name}
+      style="color: var(--uiforge-text-muted, #94a3b8); font-size: 0.8rem"
+    >
+      Loading…
+    </div>`
+  }
+  if (res?.status === 'error') {
+    return html`<div
+      data-uiforge-data-error=${name}
+      style="color: var(--uiforge-danger, #dc2626); font-size: 0.8rem"
+    >
+      Failed to load: ${res.error ?? 'unknown error'}
+    </div>`
+  }
+  return null
+}
