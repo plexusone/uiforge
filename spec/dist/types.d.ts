@@ -92,8 +92,9 @@ export interface InteractionAction {
     params?: Record<string, unknown>;
 }
 export interface NavigationSpec {
-    type: string;
+    type?: string;
     items: NavItem[];
+    breadcrumb?: NavItem[];
 }
 export interface NavItem {
     id: string;
@@ -101,6 +102,7 @@ export interface NavItem {
     icon?: string;
     target?: string;
     children?: NavItem[];
+    badge?: string;
 }
 export interface ThemeRef {
     id: string;

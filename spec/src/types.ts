@@ -111,8 +111,9 @@ export interface InteractionAction {
 }
 
 export interface NavigationSpec {
-  type: string
+  type?: string
   items: NavItem[]
+  breadcrumb?: NavItem[]
 }
 
 export interface NavItem {
@@ -121,6 +122,7 @@ export interface NavItem {
   icon?: string
   target?: string
   children?: NavItem[]
+  badge?: string
 }
 
 export interface ThemeRef {

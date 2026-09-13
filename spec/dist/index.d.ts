@@ -4,4 +4,5 @@ export { PageState } from './state.js';
 export { InteractionEngine, type ActionHandler } from './interaction.js';
 export { DataSourceRegistry, type DataSourceConnector } from './datasource.js';
 export { resolveBinding, resolveData, type BindingContext, type DataResolution } from './data.js';
+export { newPage, component, navItem, setState, toggleState, refresh, PageBuilder, ComponentBuilder, AuthoringError, } from './authoring.js';
 //# sourceMappingURL=index.d.ts.map

@@ -7,4 +7,5 @@ export { PageState } from './state.js';
 export { InteractionEngine } from './interaction.js';
 export { DataSourceRegistry } from './datasource.js';
 export { resolveBinding, resolveData } from './data.js';
+export { newPage, component, navItem, setState, toggleState, refresh, PageBuilder, ComponentBuilder, AuthoringError, } from './authoring.js';
 //# sourceMappingURL=index.js.map
