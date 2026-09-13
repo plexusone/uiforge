@@ -1,0 +1,145 @@
+{
+  "apiVersion": "ui.plexusone.dev/v1",
+  "kind": "Page",
+  "metadata": {
+    "id": "customer-record",
+    "name": "customer-record",
+    "title": "Customer Record",
+    "description": "Application-profile record page: shell layout, navigation, record detail, edit form, and actions"
+  },
+  "profile": "application",
+  "context": {
+    "customerId": "cust-42"
+  },
+  "layout": {
+    "type": "application-shell",
+    "regions": [{ "name": "header" }, { "name": "sidebar" }, { "name": "main" }]
+  },
+  "navigation": {
+    "type": "sidebar",
+    "items": [
+      { "id": "overview", "label": "Overview", "target": "/customers/overview" },
+      {
+        "id": "records",
+        "label": "Records",
+        "children": [
+          { "id": "accounts", "label": "Accounts", "target": "/customers/accounts" },
+          { "id": "contacts", "label": "Contacts", "target": "/customers/contacts" }
+        ]
+      }
+    ]
+  },
+  "theme": {
+    "id": "default",
+    "tokens": { "primary": "#0f766e" }
+  },
+  "components": [
+    {
+      "id": "customer-card",
+      "type": "core.card",
+      "properties": { "title": "Acme Corp", "subtitle": "Manufacturing — Gold tier" },
+      "children": [
+        {
+          "id": "status-badge",
+          "type": "application.badge",
+          "properties": { "label": "Active", "tone": "success" }
+        },
+        {
+          "id": "customer-detail",
+          "type": "application.record-detail",
+          "properties": {
+            "title": "Details",
+            "fields": [
+              { "label": "Industry", "field": "industry" },
+              { "label": "Owner", "field": "owner" },
+              { "label": "Region", "field": "region" }
+            ]
+          },
+          "data": {
+            "record": {
+              "source": "crm",
+              "operation": "getCustomer",
+              "parameters": { "id": "${context.customerId}" },
+              "default": { "industry": "Manufacturing", "owner": "J. Doe", "region": "West" }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "edit-form",
+      "type": "application.form",
+      "properties": { "title": "Update Customer", "submitLabel": "Save" },
+      "children": [
+        {
+          "id": "name-input",
+          "type": "application.input",
+          "properties": { "label": "Name", "type": "text", "placeholder": "Customer name" },
+          "data": {
+            "value": {
+              "source": "state",
+              "operation": "get",
+              "parameters": { "path": "form.name" },
+              "default": "Acme Corp"
+            }
+          }
+        },
+        {
+          "id": "tier-select",
+          "type": "application.select",
+          "properties": { "label": "Tier", "options": ["Bronze", "Silver", "Gold"] },
+          "data": {
+            "value": {
+              "source": "state",
+              "operation": "get",
+              "parameters": { "path": "form.tier" },
+              "default": "Gold"
+            }
+          }
+        },
+        {
+          "id": "active-check",
+          "type": "application.checkbox",
+          "properties": { "label": "Active customer" },
+          "data": {
+            "value": {
+              "source": "state",
+              "operation": "get",
+              "parameters": { "path": "form.active" },
+              "default": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "record-actions",
+      "type": "application.action-bar",
+      "properties": {
+        "actions": [
+          { "id": "save", "label": "Save", "variant": "primary" },
+          { "id": "delete", "label": "Delete", "variant": "danger" }
+        ],
+        "alignment": "end"
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "when": { "component": "edit-form", "event": "submit" },
+      "then": [
+        { "target": "status-badge", "action": "state.set", "params": { "path": "form.saved", "value": true } }
+      ]
+    },
+    {
+      "when": { "component": "record-actions", "event": "action" },
+      "then": [
+        {
+          "target": "edit-form",
+          "action": "state.set",
+          "params": { "path": "form.lastAction", "value": "${event.action}" }
+        }
+      ]
+    }
+  ]
+}
