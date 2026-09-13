@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+
+	"github.com/plexusone/uiforge/uispec"
 )
 
 // Registry is an in-memory store of ComponentSpec manifests.
@@ -30,6 +32,18 @@ func (r *Registry) Register(spec *ComponentSpec) error {
 	}
 	if spec.Version == "" {
 		return fmt.Errorf("component %q: version is required", spec.ID)
+	}
+	if spec.DesignSystem != nil {
+		var invalid []string
+		for _, token := range spec.DesignSystem.Tokens {
+			if !uispec.IsValidThemeToken(token) {
+				invalid = append(invalid, token)
+			}
+		}
+		if len(invalid) > 0 {
+			return fmt.Errorf("component %q: designSystem tokens not in the design-token contract: %s",
+				spec.ID, strings.Join(invalid, ", "))
+		}
 	}
 
 	parts := strings.SplitN(spec.ID, ".", 2)

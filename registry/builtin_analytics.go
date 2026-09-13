@@ -32,7 +32,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "300px", MinHeight: "200px"},
 			DesignSystem: &DesignSystemRef{
-				Tokens: []string{"color-accent", "color-series-1", "color-series-2", "color-series-3"},
+				Tokens: []string{"accent"},
 			},
 		},
 		{
@@ -57,7 +57,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "250px", MinHeight: "200px"},
 			DesignSystem: &DesignSystemRef{
-				Tokens: []string{"color-accent", "color-series-1", "color-series-2", "color-series-3"},
+				Tokens: []string{"accent"},
 			},
 		},
 		{
@@ -85,7 +85,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "140px", MinHeight: "80px"},
 			DesignSystem: &DesignSystemRef{
-				Tokens:   []string{"color-success", "color-danger", "font-size-lg"},
+				Tokens:   []string{"success", "danger"},
 				Variants: []string{"default", "compact", "sparkline"},
 			},
 		},
@@ -114,7 +114,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "400px"},
 			DesignSystem: &DesignSystemRef{
-				Tokens: []string{"color-border", "color-surface"},
+				Tokens: []string{"border", "surface"},
 			},
 		},
 		{
@@ -138,7 +138,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 				"clear":  {Description: "Filter cleared"},
 			},
 			DesignSystem: &DesignSystemRef{
-				Tokens: []string{"color-accent", "color-border"},
+				Tokens: []string{"accent", "border"},
 			},
 		},
 		{
@@ -162,7 +162,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "120px", MinHeight: "120px"},
 			DesignSystem: &DesignSystemRef{
-				Tokens: []string{"color-success", "color-warning", "color-danger"},
+				Tokens: []string{"success", "warning", "danger"},
 			},
 		},
 	}

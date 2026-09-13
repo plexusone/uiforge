@@ -13,7 +13,11 @@
     "type": "split-pane",
     "config": {
       "direction": "horizontal",
-      "sizes": ["260px", "1fr", "320px"],
+      "sizes": [
+        "260px",
+        "1fr",
+        "320px"
+      ],
       "resizable": true
     },
     "regions": [
@@ -21,21 +25,27 @@
         "name": "sidebar",
         "layout": {
           "type": "stack",
-          "config": {"direction": "vertical"}
+          "config": {
+            "direction": "vertical"
+          }
         }
       },
       {
         "name": "main",
         "layout": {
           "type": "stack",
-          "config": {"direction": "vertical"}
+          "config": {
+            "direction": "vertical"
+          }
         }
       },
       {
         "name": "inspector",
         "layout": {
           "type": "stack",
-          "config": {"direction": "vertical"}
+          "config": {
+            "direction": "vertical"
+          }
         }
       }
     ]
@@ -74,7 +84,9 @@
           "operation": "streamMessages"
         }
       },
-      "style": {"flex": "1"}
+      "style": {
+        "flex": "1"
+      }
     },
     {
       "id": "run-indicator",
@@ -109,27 +121,60 @@
   ],
   "interactions": [
     {
-      "when": {"component": "thread-list", "event": "select"},
-      "then": [{"target": "chat-thread", "action": "loadConversation", "params": {"id": "${event.conversationId}"}}]
+      "when": {
+        "component": "thread-list",
+        "event": "select"
+      },
+      "then": [
+        {
+          "target": "chat-thread",
+          "action": "loadConversation",
+          "params": {
+            "id": "${event.conversationId}"
+          }
+        }
+      ]
     },
     {
-      "when": {"component": "composer", "event": "submit"},
-      "then": [{"target": "chat-thread", "action": "sendMessage", "params": {"content": "${event.content}"}}]
+      "when": {
+        "component": "composer",
+        "event": "submit"
+      },
+      "then": [
+        {
+          "target": "chat-thread",
+          "action": "sendMessage",
+          "params": {
+            "content": "${event.content}"
+          }
+        }
+      ]
     },
     {
-      "when": {"component": "chat-thread", "event": "messageAdded"},
-      "then": [{"target": "tool-inspector", "action": "update", "params": {"messageId": "${event.messageId}"}}]
+      "when": {
+        "component": "chat-thread",
+        "event": "messageAdded"
+      },
+      "then": [
+        {
+          "target": "tool-inspector",
+          "action": "update",
+          "params": {
+            "messageId": "${event.messageId}"
+          }
+        }
+      ]
     }
   ],
   "theme": {
     "id": "agentos",
     "variant": "light",
     "tokens": {
-      "color-primary": "#6366f1",
-      "color-surface": "#ffffff",
-      "color-border": "#e2e8f0",
-      "color-text": "#0f172a",
-      "color-text-secondary": "#64748b"
+      "primary": "#6366f1",
+      "surface": "#ffffff",
+      "border": "#e2e8f0",
+      "text": "#0f172a",
+      "text-muted": "#64748b"
     }
   }
 }

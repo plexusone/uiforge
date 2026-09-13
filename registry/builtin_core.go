@@ -25,7 +25,7 @@ func RegisterCoreComponents(r *Registry) error {
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "200px"},
 			DesignSystem: &DesignSystemRef{
-				Tokens:   []string{"color-surface", "color-border", "radius-md", "shadow-sm"},
+				Tokens:   []string{"surface", "border", "radius", "shadow"},
 				Variants: []string{"default", "outlined", "elevated"},
 			},
 		},
@@ -43,7 +43,7 @@ func RegisterCoreComponents(r *Registry) error {
 				}
 			}`),
 			DesignSystem: &DesignSystemRef{
-				Tokens:   []string{"font-family", "font-size-base", "color-text"},
+				Tokens:   []string{"font-family", "text"},
 				Variants: []string{"body", "heading", "caption", "code"},
 			},
 		},
@@ -81,7 +81,7 @@ func RegisterCoreComponents(r *Registry) error {
 				"change": {Description: "Active tab changed", Schema: json.RawMessage(`{"type":"object","properties":{"tab":{"type":"string"}}}`)},
 			},
 			DesignSystem: &DesignSystemRef{
-				Tokens:   []string{"color-accent", "color-border"},
+				Tokens:   []string{"accent", "border"},
 				Variants: []string{"line", "enclosed", "pill"},
 			},
 		},
@@ -105,7 +105,7 @@ func RegisterCoreComponents(r *Registry) error {
 				"click": {Description: "Button clicked"},
 			},
 			DesignSystem: &DesignSystemRef{
-				Tokens:   []string{"color-accent", "color-danger", "radius-sm"},
+				Tokens:   []string{"accent", "danger", "radius"},
 				Variants: []string{"primary", "secondary", "ghost", "danger"},
 			},
 		},
@@ -129,7 +129,7 @@ func RegisterCoreComponents(r *Registry) error {
 			},
 			Actions: []string{"open", "close"},
 			DesignSystem: &DesignSystemRef{
-				Tokens:   []string{"color-surface", "shadow-lg", "radius-lg"},
+				Tokens:   []string{"surface", "shadow", "radius"},
 				Variants: []string{"sm", "md", "lg", "full"},
 			},
 		},

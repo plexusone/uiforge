@@ -112,6 +112,7 @@ UIForge does not define its own design-token model; it consumes **design-system-
 - **`theme` package.** `theme.FromDesignSystem(ds, opts)` maps a DSS document's foundations onto that vocabulary (colors by their declared `semantic`, first font family, `md` radius) and emits either a scoped stylesheet (`Theme.CSS(selector)`) or a `uispec.ThemeRef` for embedding in a PageSpec.
 - **White-label / prefix policy.** The internal `--uiforge-*` prefix and `data-uiforge-*` DOM vocabulary are a **fixed machine contract** (like Lightning's `--slds-*` or Polaris `--p-*`) — they are never renamed. Brand adaptability lives at the boundary: `Options.SourcePrefix` emits bindings that reference the host design system's own variables (`--uiforge-primary: var(--plexus-cyan, #06b6d4)`), so reliant services keep their own prefix and can restyle at runtime; and theme values apply at each page scope (the `<uiforge-page>` root or any selector passed to `Theme.CSS`), so multiple tenants can carry different brands on one page without collisions.
 - **Modes.** Light/dark uses DSS per-token `lightModeValue`/`darkModeValue` via `theme.Options.Mode`; `ThemeRef.variant` records the chosen mode.
+- **Enforcement.** The contract is machine-checked: `uispec.ValidThemeTokenKeys` is the canonical vocabulary (its equivalence with DSS's `ValidSemantics` is guarded by a theme-package test); `registry.Register` rejects manifests whose `designSystem.tokens` fall outside it, and `registry.ValidatePage` rejects pages whose `theme.tokens` do.
 
 ## Versioning
 

@@ -72,6 +72,14 @@ func (r *Registry) ValidatePage(page *uispec.PageSpec) error {
 		}
 	}
 
+	if page.Theme != nil {
+		for key := range page.Theme.Tokens {
+			if !uispec.IsValidThemeToken(key) {
+				ve.add("theme.tokens[%q] is not in the design-token contract (see uispec.ValidThemeTokenKeys)", key)
+			}
+		}
+	}
+
 	if page.Profile != "" {
 		if err := ValidateProfile(page); err != nil {
 			if pve, ok := err.(*ValidationError); ok {

@@ -27,7 +27,7 @@
 
 **Layout constraints:** min width 250px; min height 200px
 
-**Design tokens:** `color-accent`, `color-series-1`, `color-series-2`, `color-series-3`
+**Design tokens:** `accent`
 
 ## `analytics.filter`
 
@@ -48,7 +48,7 @@
 | `change` | Filter value changed |
 | `clear` | Filter cleared |
 
-**Design tokens:** `color-accent`, `color-border`
+**Design tokens:** `accent`, `border`
 
 ## `analytics.gauge`
 
@@ -71,7 +71,7 @@
 
 **Layout constraints:** min width 120px; min height 120px
 
-**Design tokens:** `color-success`, `color-warning`, `color-danger`
+**Design tokens:** `success`, `warning`, `danger`
 
 ## `analytics.line-chart`
 
@@ -102,7 +102,7 @@
 
 **Layout constraints:** min width 300px; min height 200px
 
-**Design tokens:** `color-accent`, `color-series-1`, `color-series-2`, `color-series-3`
+**Design tokens:** `accent`
 
 ## `analytics.metric`
 
@@ -132,7 +132,7 @@
 
 **Layout constraints:** min width 140px; min height 80px
 
-**Design tokens:** `color-success`, `color-danger`, `font-size-lg`
+**Design tokens:** `success`, `danger`
 
 **Variants:** `default`, `compact`, `sparkline`
 
@@ -164,5 +164,5 @@
 
 **Layout constraints:** min width 400px
 
-**Design tokens:** `color-border`, `color-surface`
+**Design tokens:** `border`, `surface`
 

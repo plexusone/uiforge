@@ -20,7 +20,7 @@
 |---|---|
 | `click` | Button clicked |
 
-**Design tokens:** `color-accent`, `color-danger`, `radius-sm`
+**Design tokens:** `accent`, `danger`, `radius`
 
 **Variants:** `primary`, `secondary`, `ghost`, `danger`
 
@@ -43,7 +43,7 @@
 
 **Layout constraints:** min width 200px
 
-**Design tokens:** `color-surface`, `color-border`, `radius-md`, `shadow-sm`
+**Design tokens:** `surface`, `border`, `radius`, `shadow`
 
 **Variants:** `default`, `outlined`, `elevated`
 
@@ -79,7 +79,7 @@
 
 **Actions:** `open`, `close`
 
-**Design tokens:** `color-surface`, `shadow-lg`, `radius-lg`
+**Design tokens:** `surface`, `shadow`, `radius`
 
 **Variants:** `sm`, `md`, `lg`, `full`
 
@@ -98,7 +98,7 @@
 |---|---|
 | `change` | Active tab changed |
 
-**Design tokens:** `color-accent`, `color-border`
+**Design tokens:** `accent`, `border`
 
 **Variants:** `line`, `enclosed`, `pill`
 
@@ -112,7 +112,7 @@
 | `markdown` | boolean |  |  |
 | `variant` | string |  | `body`, `heading`, `caption`, `code` |
 
-**Design tokens:** `font-family`, `font-size-base`, `color-text`
+**Design tokens:** `font-family`, `text`
 
 **Variants:** `body`, `heading`, `caption`, `code`
 
