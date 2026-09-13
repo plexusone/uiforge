@@ -52,6 +52,8 @@ nav:
       - Data Binding: concepts/data-binding.md
       - Theming & Design Systems: concepts/theming.md
       - Renderers: concepts/renderers.md
+  - Guides:
+      - Authoring Components: guides/authoring-components.md
   - Components:
       - Overview: components/index.md
       - Core: components/core.md

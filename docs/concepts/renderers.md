@@ -59,3 +59,5 @@ registerComponent('acme.widget', AcmeWidget)
 - The builtin `core.*`, `analytics.*`, and `application.*` packs with matching DOM
 
 The conformance suites (`conformance.test.ts` / `.tsx`) hold the two implementations to the same output for every golden fixture — treat the DOM vocabulary as a public API.
+
+To build and register your own components against the full contract (manifest, tokens, events, testing), see [Authoring Components](../guides/authoring-components.md).
