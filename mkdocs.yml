@@ -53,6 +53,7 @@ nav:
       - Theming & Design Systems: concepts/theming.md
       - Renderers: concepts/renderers.md
   - Guides:
+      - Authoring Pages: guides/authoring-pages.md
       - Authoring Components: guides/authoring-components.md
   - Components:
       - Overview: components/index.md

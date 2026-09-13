@@ -41,6 +41,7 @@ uiforge/
 │   └── diff/               # PageSpec tree diffing for incremental re-render
 ├── schema/                 # Generated JSON Schemas + go:embed accessors + generator
 ├── theme/                  # DSS → UIForge theme adapter (semantic token bindings)
+├── authoring/              # Fluent PageSpec builders (TS counterpart in spec/)
 ├── spec/                   # @plexusone/uiforge-spec — shared TS types + framework-free engines
 ├── renderers/
 │   ├── react/              # @plexusone/uiforge-renderer (React 18/19)
