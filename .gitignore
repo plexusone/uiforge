@@ -45,3 +45,6 @@ bin/
 
 # Local Claude Code settings
 .claude/settings.local.json
+
+# MkDocs build output
+site/

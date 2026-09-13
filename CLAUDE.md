@@ -31,6 +31,7 @@ PageSpec ──► schema validation ──► registry validation ──► pkg
 ## Conventions & Gotchas
 
 - **Schemas are generated, never hand-edited.** `go run schema/generate/main.go` from the repo root must leave a clean git diff. Lint with `schemakit lint --property-case camelCase`.
+- **The component reference (`docs/components/`) is generated from the registry manifests** by `go run docs/generate/main.go` — regenerate after any manifest change; never hand-edit. `docs/changelog.md` and `CHANGELOG.md` are both generated from `CHANGELOG.json` via `schangelog generate`. The MkDocs site builds with `mkdocs build` (output `site/` is gitignored).
 - **`data-uiforge-*` DOM vocabulary is a cross-renderer contract.** Both renderers and their tests assert on it — change it in lockstep or not at all. This includes the data-state markers `data-uiforge-loading` and `data-uiforge-data-error` emitted while connector bindings resolve.
 - **Theme tokens are `--uiforge-<key>` CSS custom properties where keys follow DSS's semantic vocabulary** (primary, surface, text-muted, border, accent, …) plus `font-family` and `radius`. The internal prefix is fixed — never make it configurable; white-labeling happens by binding values (see `theme.Options.SourcePrefix`) and scoping themes per page root, not by renaming the contract.
 - **go.mod stays at `go 1.26.6`.** Shared CI (`plexusone/.github` reusable workflows) runs `GOTOOLCHAIN=local` with a cached 1.26.x toolchain; a newer directive breaks CI even if it builds locally.

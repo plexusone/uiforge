@@ -92,6 +92,8 @@ python3 -m http.server        # from the repo root
 go test ./...                    # Go core (includes golden PageSpec fixture validation)
 golangci-lint run ./...
 go run schema/generate/main.go   # regenerate JSON schemas (must leave a clean diff)
+go run docs/generate/main.go     # regenerate the component reference from registry manifests
+mkdocs build                     # docs site (docs/ + mkdocs.yml)
 
 cd spec            && npm install && npm run build && npm test   # build spec first
 cd ../renderers/react && npm install && npm run build && npm test

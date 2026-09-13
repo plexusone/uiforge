@@ -1,0 +1,74 @@
+site_name: UIForge
+site_description: Specification-driven UI composition platform — declarative PageSpec JSON, a governed component registry, and interchangeable React and Lit renderers
+site_url: https://plexusone.github.io/uiforge
+repo_url: https://github.com/plexusone/uiforge
+repo_name: plexusone/uiforge
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    # Dark mode first (PlexusOne default)
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+extra_css:
+  - https://plexusone.dev/css/plexusone-mkdocs.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Concepts:
+      - Architecture: concepts/architecture.md
+      - PageSpec: concepts/pagespec.md
+      - Data Binding: concepts/data-binding.md
+      - Theming & Design Systems: concepts/theming.md
+      - Renderers: concepts/renderers.md
+  - Components:
+      - Overview: components/index.md
+      - Core: components/core.md
+      - Analytics: components/analytics.md
+      - Application: components/application.md
+      - Assistant: components/assistant.md
+  - Specifications:
+      - PRD: specs/PRD.md
+      - TRD: specs/TRD.md
+      - Plan: specs/PLAN.md
+      - Roadmap: specs/ROADMAP.md
+  - API Reference: https://pkg.go.dev/github.com/plexusone/uiforge
+  - Releases:
+      - Changelog: changelog.md
+      - v0.1.0: releases/v0.1.0.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/plexusone/uiforge
