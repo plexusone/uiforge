@@ -12,6 +12,7 @@ export interface UIForgeContextValue {
     onInteraction?: (componentId: string, event: string, data?: Record<string, unknown>) => void;
     dispatch: (componentId: string, eventName: string, eventData?: Record<string, unknown>) => void;
     data: (instance: ComponentInstance) => Record<string, DataResolution>;
+    hasCapability: (name: string) => boolean;
 }
 export declare const UIForgeContext: React.Context<UIForgeContextValue | null>;
 export declare function useUIForge(): UIForgeContextValue | null;
@@ -23,6 +24,7 @@ export interface PageRendererProps {
     initialState?: Record<string, unknown>;
     dataSources?: DataSourceConnector[];
     onInteraction?: (componentId: string, event: string, data?: Record<string, unknown>) => void;
+    capabilities?: string[];
 }
-export declare function PageRenderer({ page, className, style, onError, initialState, dataSources: dataSourceConnectors, onInteraction, }: PageRendererProps): React.ReactElement;
+export declare function PageRenderer({ page, className, style, onError, initialState, dataSources: dataSourceConnectors, onInteraction, capabilities, }: PageRendererProps): React.ReactElement;
 //# sourceMappingURL=PageRenderer.d.ts.map

@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { registerComponent } from '../registry.js';
 import { resolveData } from '@plexusone/uiforge-spec';
-import { renderDataStatus, resolveBoundData } from './data-helpers.js';
+import { renderDataStatus, resolveBoundData, writeBinding } from './data-helpers.js';
 // Analytics component pack for the Lit renderer: metric, filter, table,
 // line-chart, bar-chart, gauge. Visuals are intentionally dependency-free
 // (inline SVG); hosts wanting a charting library can register their own
@@ -74,16 +74,10 @@ export function renderMetric(instance, ctx) {
 }
 export function renderFilter(instance, ctx) {
     const options = prop(instance, 'options', []);
-    const valueBinding = instance.data?.['value'];
     const current = ctx ? resolveData(instance, { state: ctx.state })['value'] : undefined;
     const onChange = (e) => {
         const value = e.target.value;
-        if (ctx && valueBinding?.source === 'state') {
-            const path = valueBinding.parameters?.path;
-            if (typeof path === 'string')
-                ctx.state.set(path, value);
-        }
-        ctx?.dispatch(instance.id, 'change', { value });
+        writeBinding(instance, ctx, 'value', value, 'change', { value });
     };
     return html `
     <label style=${styleMap(cardStyle)} data-uiforge-component=${instance.id}>

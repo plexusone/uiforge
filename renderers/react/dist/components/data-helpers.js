@@ -1,4 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { CAPABILITY_STATE_WRITE } from '@plexusone/uiforge-spec';
 // resolveBoundData returns the page's current DataResolution for one of the
 // instance's named bindings, or undefined when rendered without a page
 // context.
@@ -32,7 +33,7 @@ export function propOf(instance, key, fallback) {
 // interaction rules.
 export function writeBinding(instance, ctx, name, value, eventName, eventData) {
     const binding = instance.data?.[name];
-    if (ctx && binding?.source === 'state') {
+    if (ctx && binding?.source === 'state' && ctx.hasCapability(CAPABILITY_STATE_WRITE)) {
         const path = binding.parameters?.path;
         if (typeof path === 'string')
             ctx.state.set(path, value);

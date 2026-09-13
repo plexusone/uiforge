@@ -1,4 +1,5 @@
 import { html, type TemplateResult } from 'lit'
+import { CAPABILITY_STATE_WRITE } from '@plexusone/uiforge-spec'
 import type { PageContext } from '../registry.js'
 import type { DataResolution } from '@plexusone/uiforge-spec'
 import type { ComponentInstance } from '@plexusone/uiforge-spec'
@@ -55,7 +56,7 @@ export function writeBinding(
   eventData: Record<string, unknown>,
 ): void {
   const binding = instance.data?.[name]
-  if (ctx && binding?.source === 'state') {
+  if (ctx && binding?.source === 'state' && ctx.hasCapability(CAPABILITY_STATE_WRITE)) {
     const path = binding.parameters?.path
     if (typeof path === 'string') ctx.state.set(path, value)
   }

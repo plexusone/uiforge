@@ -1,7 +1,7 @@
 import { LitElement, html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { getComponent } from './registry.js';
-import { resolveBinding } from '@plexusone/uiforge-spec';
+import { CAPABILITY_DATA_READ, resolveBinding } from '@plexusone/uiforge-spec';
 import { DataSourceRegistry } from '@plexusone/uiforge-spec';
 import { evaluateExpression, containsExpression } from '@plexusone/uiforge-spec';
 import { PageState } from '@plexusone/uiforge-spec';
@@ -16,6 +16,7 @@ export class UIForgePage extends LitElement {
         spec: { attribute: false },
         initialState: { attribute: false },
         dataSources: { attribute: false },
+        capabilities: { attribute: false },
         _activeTab: { state: true },
     }; }
     constructor() {
@@ -24,13 +25,17 @@ export class UIForgePage extends LitElement {
         this.spec = undefined;
         this.initialState = undefined;
         this.dataSources = undefined;
+        this.capabilities = undefined;
         this._activeTab = '';
         this.state = new PageState();
         this.engine = new InteractionEngine(this.state);
         this.dataRegistry = new DataSourceRegistry();
     }
     willUpdate(changed) {
-        if (changed.has('spec') || changed.has('initialState') || changed.has('dataSources')) {
+        if (changed.has('spec') ||
+            changed.has('initialState') ||
+            changed.has('dataSources') ||
+            changed.has('capabilities')) {
             this.state = new PageState();
             if (this.spec?.context) {
                 this.state.load({ context: this.spec.context });
@@ -51,6 +56,11 @@ export class UIForgePage extends LitElement {
             this.dataCache.clear();
             this._activeTab = this.spec?.layout.regions?.[0]?.name ?? '';
         }
+    }
+    // hasCapability reports whether the page-level capability grant allows the
+    // named capability. An absent grant set means unrestricted.
+    hasCapability(name) {
+        return this.capabilities === undefined || this.capabilities.includes(name);
     }
     // invalidateComponentData drops cached connector results for a component.
     invalidateComponentData(componentId) {
@@ -74,6 +84,13 @@ export class UIForgePage extends LitElement {
             }
             if (!this.dataRegistry.has(binding.source)) {
                 result[name] = { status: 'ready', value: binding.default };
+                continue;
+            }
+            if (!this.hasCapability(CAPABILITY_DATA_READ)) {
+                result[name] = {
+                    status: 'error',
+                    error: `capability "${CAPABILITY_DATA_READ}" not granted`,
+                };
                 continue;
             }
             const key = `${instance.id}:${name}`;
@@ -113,6 +130,7 @@ export class UIForgePage extends LitElement {
             engine: this.engine,
             dispatch: (componentId, eventName, eventData) => this.dispatch(componentId, eventName, eventData),
             data: (instance) => this.resolveInstanceData(instance),
+            hasCapability: (name) => this.hasCapability(name),
         };
     }
     render() {

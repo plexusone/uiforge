@@ -15,6 +15,10 @@ export interface PageContext {
   engine: InteractionEngine
   dispatch: (componentId: string, eventName: string, eventData?: Record<string, unknown>) => void
   data: (instance: ComponentInstance) => Record<string, DataResolution>
+  // hasCapability reports whether the page's capability grant allows the
+  // named capability. When the host supplies no grant set, everything is
+  // allowed (trusted-native default).
+  hasCapability: (name: string) => boolean
 }
 
 // A component factory renders one ComponentInstance into a lit template.

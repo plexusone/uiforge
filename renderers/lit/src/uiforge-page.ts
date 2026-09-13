@@ -2,7 +2,7 @@ import { LitElement, html, nothing, type TemplateResult } from 'lit'
 import { styleMap } from 'lit/directives/style-map.js'
 import { getComponent } from './registry.js'
 import type { PageContext } from './registry.js'
-import { resolveBinding, type DataResolution } from '@plexusone/uiforge-spec'
+import { CAPABILITY_DATA_READ, resolveBinding, type DataResolution } from '@plexusone/uiforge-spec'
 import { DataSourceRegistry, type DataSourceConnector } from '@plexusone/uiforge-spec'
 import { evaluateExpression, containsExpression } from '@plexusone/uiforge-spec'
 import { PageState } from '@plexusone/uiforge-spec'
@@ -26,12 +26,14 @@ export class UIForgePage extends LitElement {
     spec: { attribute: false },
     initialState: { attribute: false },
     dataSources: { attribute: false },
+    capabilities: { attribute: false },
     _activeTab: { state: true },
   }
 
   declare spec: PageSpec | undefined
   declare initialState: Record<string, unknown> | undefined
   declare dataSources: DataSourceConnector[] | undefined
+  declare capabilities: string[] | undefined
   declare _activeTab: string
 
   state: PageState
@@ -45,6 +47,7 @@ export class UIForgePage extends LitElement {
     this.spec = undefined
     this.initialState = undefined
     this.dataSources = undefined
+    this.capabilities = undefined
     this._activeTab = ''
     this.state = new PageState()
     this.engine = new InteractionEngine(this.state)
@@ -52,7 +55,12 @@ export class UIForgePage extends LitElement {
   }
 
   willUpdate(changed: Map<string, unknown>): void {
-    if (changed.has('spec') || changed.has('initialState') || changed.has('dataSources')) {
+    if (
+      changed.has('spec') ||
+      changed.has('initialState') ||
+      changed.has('dataSources') ||
+      changed.has('capabilities')
+    ) {
       this.state = new PageState()
       if (this.spec?.context) {
         this.state.load({ context: this.spec.context })
@@ -73,6 +81,12 @@ export class UIForgePage extends LitElement {
       this.dataCache.clear()
       this._activeTab = this.spec?.layout.regions?.[0]?.name ?? ''
     }
+  }
+
+  // hasCapability reports whether the page-level capability grant allows the
+  // named capability. An absent grant set means unrestricted.
+  hasCapability(name: string): boolean {
+    return this.capabilities === undefined || this.capabilities.includes(name)
   }
 
   // invalidateComponentData drops cached connector results for a component.
@@ -98,6 +112,13 @@ export class UIForgePage extends LitElement {
       }
       if (!this.dataRegistry.has(binding.source)) {
         result[name] = { status: 'ready', value: binding.default }
+        continue
+      }
+      if (!this.hasCapability(CAPABILITY_DATA_READ)) {
+        result[name] = {
+          status: 'error',
+          error: `capability "${CAPABILITY_DATA_READ}" not granted`,
+        }
         continue
       }
 
@@ -142,6 +163,7 @@ export class UIForgePage extends LitElement {
       dispatch: (componentId, eventName, eventData) =>
         this.dispatch(componentId, eventName, eventData),
       data: (instance) => this.resolveInstanceData(instance),
+      hasCapability: (name) => this.hasCapability(name),
     }
   }
 

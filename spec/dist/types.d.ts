@@ -1,5 +1,7 @@
 export declare const API_VERSION = "ui.plexusone.dev/v1";
 export declare const KIND_PAGE = "Page";
+export declare const CAPABILITY_DATA_READ = "data.read";
+export declare const CAPABILITY_STATE_WRITE = "state.write";
 export interface PageSpec {
     apiVersion: string;
     kind: string;

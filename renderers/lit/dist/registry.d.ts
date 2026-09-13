@@ -8,6 +8,7 @@ export interface PageContext {
     engine: InteractionEngine;
     dispatch: (componentId: string, eventName: string, eventData?: Record<string, unknown>) => void;
     data: (instance: ComponentInstance) => Record<string, DataResolution>;
+    hasCapability: (name: string) => boolean;
 }
 export type UIForgeComponentFactory = (instance: ComponentInstance, ctx?: PageContext, children?: TemplateResult[]) => TemplateResult;
 export declare function registerComponent(type: string, factory: UIForgeComponentFactory): void;

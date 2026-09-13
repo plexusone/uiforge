@@ -2,7 +2,7 @@ import React from 'react'
 import type { PageSpec, ComponentInstance, ThemeRef } from '@plexusone/uiforge-spec'
 import { getComponent } from './registry.js'
 import { Layout } from './layouts.js'
-import { resolveBinding, type DataResolution } from '@plexusone/uiforge-spec'
+import { CAPABILITY_DATA_READ, resolveBinding, type DataResolution } from '@plexusone/uiforge-spec'
 import { evaluateExpression, containsExpression } from '@plexusone/uiforge-spec'
 import { PageState } from '@plexusone/uiforge-spec'
 import { InteractionEngine } from '@plexusone/uiforge-spec'
@@ -19,6 +19,10 @@ export interface UIForgeContextValue {
   // instance's bindings, kicking off async connector fetches as needed.
   dispatch: (componentId: string, eventName: string, eventData?: Record<string, unknown>) => void
   data: (instance: ComponentInstance) => Record<string, DataResolution>
+  // hasCapability reports whether the page's capability grant allows the
+  // named capability. When the host supplies no grant set, everything is
+  // allowed (trusted-native default).
+  hasCapability: (name: string) => boolean
 }
 
 export const UIForgeContext = React.createContext<UIForgeContextValue | null>(null)
@@ -35,6 +39,10 @@ export interface PageRendererProps {
   initialState?: Record<string, unknown>
   dataSources?: DataSourceConnector[]
   onInteraction?: (componentId: string, event: string, data?: Record<string, unknown>) => void
+  // capabilities is the host's capability grant for this page. Absent means
+  // unrestricted; present means the data runtime requires data.read and
+  // state-writing controls require state.write.
+  capabilities?: string[]
 }
 
 export function PageRenderer({
@@ -45,6 +53,7 @@ export function PageRenderer({
   initialState,
   dataSources: dataSourceConnectors,
   onInteraction,
+  capabilities,
 }: PageRendererProps): React.ReactElement {
   const [, forceRender] = React.useReducer((x: number) => x + 1, 0)
   const dataCache = React.useRef(new Map<string, DataResolution>())
@@ -70,9 +79,17 @@ export function PageRenderer({
   })
 
   // Reset the binding cache when the page or connectors change identity.
-  if (cacheKeyRef.current[0] !== page || cacheKeyRef.current[1] !== dataSourceConnectors) {
-    cacheKeyRef.current = [page, dataSourceConnectors]
+  if (
+    cacheKeyRef.current[0] !== page ||
+    cacheKeyRef.current[1] !== dataSourceConnectors ||
+    cacheKeyRef.current[2] !== capabilities
+  ) {
+    cacheKeyRef.current = [page, dataSourceConnectors, capabilities]
     dataCache.current.clear()
+  }
+
+  function hasCapability(name: string): boolean {
+    return capabilities === undefined || capabilities.includes(name)
   }
 
   // invalidate drops cached connector results for a component so its
@@ -114,6 +131,13 @@ export function PageRenderer({
         result[name] = { status: 'ready', value: binding.default }
         continue
       }
+      if (!hasCapability(CAPABILITY_DATA_READ)) {
+        result[name] = {
+          status: 'error',
+          error: `capability "${CAPABILITY_DATA_READ}" not granted`,
+        }
+        continue
+      }
 
       const key = `${instance.id}:${name}`
       const cached = dataCache.current.get(key)
@@ -147,6 +171,7 @@ export function PageRenderer({
     onInteraction,
     dispatch,
     data: resolveInstanceData,
+    hasCapability,
   }
 
   const themeStyle = buildThemeStyle(page.theme)

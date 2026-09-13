@@ -14,6 +14,9 @@ export declare class UIForgePage extends LitElement {
         dataSources: {
             attribute: boolean;
         };
+        capabilities: {
+            attribute: boolean;
+        };
         _activeTab: {
             state: boolean;
         };
@@ -21,6 +24,7 @@ export declare class UIForgePage extends LitElement {
     spec: PageSpec | undefined;
     initialState: Record<string, unknown> | undefined;
     dataSources: DataSourceConnector[] | undefined;
+    capabilities: string[] | undefined;
     _activeTab: string;
     state: PageState;
     engine: InteractionEngine;
@@ -28,6 +32,7 @@ export declare class UIForgePage extends LitElement {
     private dataCache;
     constructor();
     willUpdate(changed: Map<string, unknown>): void;
+    hasCapability(name: string): boolean;
     invalidateComponentData(componentId: string): void;
     private resolveInstanceData;
     dispatch(componentId: string, eventName: string, eventData?: Record<string, unknown>): void;

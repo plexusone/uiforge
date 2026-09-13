@@ -1,5 +1,5 @@
 import React from 'react';
-import type { DataResolution } from '@plexusone/uiforge-spec';
+import { type DataResolution } from '@plexusone/uiforge-spec';
 import type { UIForgeContextValue } from '../PageRenderer.js';
 import type { ComponentInstance } from '@plexusone/uiforge-spec';
 export declare function resolveBoundData(instance: ComponentInstance, ctx: UIForgeContextValue | null, name: string): DataResolution | undefined;

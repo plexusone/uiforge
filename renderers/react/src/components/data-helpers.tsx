@@ -1,5 +1,5 @@
 import React from 'react'
-import type { DataResolution } from '@plexusone/uiforge-spec'
+import { CAPABILITY_STATE_WRITE, type DataResolution } from '@plexusone/uiforge-spec'
 import type { UIForgeContextValue } from '../PageRenderer.js'
 import type { ComponentInstance } from '@plexusone/uiforge-spec'
 
@@ -70,7 +70,7 @@ export function writeBinding(
   eventData: Record<string, unknown>,
 ): void {
   const binding = instance.data?.[name]
-  if (ctx && binding?.source === 'state') {
+  if (ctx && binding?.source === 'state' && ctx.hasCapability(CAPABILITY_STATE_WRITE)) {
     const path = binding.parameters?.path
     if (typeof path === 'string') ctx.state.set(path, value)
   }

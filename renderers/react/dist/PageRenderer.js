@@ -2,7 +2,7 @@ import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
 import React from 'react';
 import { getComponent } from './registry.js';
 import { Layout } from './layouts.js';
-import { resolveBinding } from '@plexusone/uiforge-spec';
+import { CAPABILITY_DATA_READ, resolveBinding } from '@plexusone/uiforge-spec';
 import { evaluateExpression, containsExpression } from '@plexusone/uiforge-spec';
 import { PageState } from '@plexusone/uiforge-spec';
 import { InteractionEngine } from '@plexusone/uiforge-spec';
@@ -11,7 +11,7 @@ export const UIForgeContext = React.createContext(null);
 export function useUIForge() {
     return React.useContext(UIForgeContext);
 }
-export function PageRenderer({ page, className, style, onError, initialState, dataSources: dataSourceConnectors, onInteraction, }) {
+export function PageRenderer({ page, className, style, onError, initialState, dataSources: dataSourceConnectors, onInteraction, capabilities, }) {
     const [, forceRender] = React.useReducer((x) => x + 1, 0);
     const dataCache = React.useRef(new Map());
     const cacheKeyRef = React.useRef([]);
@@ -34,9 +34,14 @@ export function PageRenderer({ page, className, style, onError, initialState, da
         return { state: pageState, engine, dataSources: dsRegistry };
     });
     // Reset the binding cache when the page or connectors change identity.
-    if (cacheKeyRef.current[0] !== page || cacheKeyRef.current[1] !== dataSourceConnectors) {
-        cacheKeyRef.current = [page, dataSourceConnectors];
+    if (cacheKeyRef.current[0] !== page ||
+        cacheKeyRef.current[1] !== dataSourceConnectors ||
+        cacheKeyRef.current[2] !== capabilities) {
+        cacheKeyRef.current = [page, dataSourceConnectors, capabilities];
         dataCache.current.clear();
+    }
+    function hasCapability(name) {
+        return capabilities === undefined || capabilities.includes(name);
     }
     // invalidate drops cached connector results for a component so its
     // bindings re-fetch on the next render (the component.refresh action).
@@ -70,6 +75,13 @@ export function PageRenderer({ page, className, style, onError, initialState, da
                 result[name] = { status: 'ready', value: binding.default };
                 continue;
             }
+            if (!hasCapability(CAPABILITY_DATA_READ)) {
+                result[name] = {
+                    status: 'error',
+                    error: `capability "${CAPABILITY_DATA_READ}" not granted`,
+                };
+                continue;
+            }
             const key = `${instance.id}:${name}`;
             const cached = dataCache.current.get(key);
             if (cached) {
@@ -99,6 +111,7 @@ export function PageRenderer({ page, className, style, onError, initialState, da
         onInteraction,
         dispatch,
         data: resolveInstanceData,
+        hasCapability,
     };
     const themeStyle = buildThemeStyle(page.theme);
     const mergedStyle = { ...themeStyle, ...style };

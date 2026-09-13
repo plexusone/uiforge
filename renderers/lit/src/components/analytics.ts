@@ -2,7 +2,7 @@ import { html, type TemplateResult } from 'lit'
 import { styleMap } from 'lit/directives/style-map.js'
 import { registerComponent, type PageContext } from '../registry.js'
 import { resolveData } from '@plexusone/uiforge-spec'
-import { renderDataStatus, resolveBoundData } from './data-helpers.js'
+import { renderDataStatus, resolveBoundData, writeBinding } from './data-helpers.js'
 import type { ComponentInstance } from '@plexusone/uiforge-spec'
 
 // Analytics component pack for the Lit renderer: metric, filter, table,
@@ -87,16 +87,11 @@ export function renderMetric(instance: ComponentInstance, ctx?: PageContext): Te
 
 export function renderFilter(instance: ComponentInstance, ctx?: PageContext): TemplateResult {
   const options = prop<unknown[]>(instance, 'options', [])
-  const valueBinding = instance.data?.['value']
   const current = ctx ? resolveData(instance, { state: ctx.state })['value'] : undefined
 
   const onChange = (e: Event) => {
     const value = (e.target as HTMLSelectElement).value
-    if (ctx && valueBinding?.source === 'state') {
-      const path = valueBinding.parameters?.path
-      if (typeof path === 'string') ctx.state.set(path, value)
-    }
-    ctx?.dispatch(instance.id, 'change', { value })
+    writeBinding(instance, ctx, 'value', value, 'change', { value })
   }
 
   return html`
