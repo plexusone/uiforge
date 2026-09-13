@@ -5,6 +5,25 @@ type ThemeRef struct {
 	ID      string            `json:"id"`
 	Variant string            `json:"variant,omitempty"`
 	Tokens  map[string]string `json:"tokens,omitempty"`
+	// Modes holds per-mode token overlays (e.g. "light", "dark"). At render
+	// time the active mode's overlay is applied on top of Tokens; Variant
+	// names the default mode, and renderers can switch modes at runtime.
+	Modes map[string]map[string]string `json:"modes,omitempty"`
+	// Density selects the spacing density: "" or DensityComfortable for the
+	// default, DensityCompact for tighter spacing. Renderers surface it as a
+	// data-uiforge-density attribute and a --uiforge-density scale factor.
+	Density string `json:"density,omitempty"`
+}
+
+// Density values.
+const (
+	DensityComfortable = "comfortable"
+	DensityCompact     = "compact"
+)
+
+// IsValidDensity reports whether d is a recognized density value.
+func IsValidDensity(d string) bool {
+	return d == "" || d == DensityComfortable || d == DensityCompact
 }
 
 // ValidThemeTokenKeys is UIForge's design-token contract: the semantic color

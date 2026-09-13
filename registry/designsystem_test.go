@@ -123,3 +123,42 @@ func TestValidatePageRejectsProfileDisallowedCapabilities(t *testing.T) {
 		t.Fatalf("builtin capabilities should be allowed: %v", err)
 	}
 }
+
+func TestValidatePageThemeModesAndDensity(t *testing.T) {
+	r, err := NewWithBuiltins()
+	if err != nil {
+		t.Fatal(err)
+	}
+	page := &uispec.PageSpec{
+		APIVersion: uispec.APIVersion,
+		Kind:       uispec.KindPage,
+		Metadata:   uispec.PageMetadata{ID: "p", Name: "p", Title: "P"},
+		Layout:     uispec.LayoutSpec{Type: uispec.LayoutStack},
+		Theme: &uispec.ThemeRef{
+			ID:      "brand",
+			Density: "cozy",
+			Modes:   map[string]map[string]string{"dark": {"color-blurple": "#123"}},
+		},
+	}
+	err = r.ValidatePage(page)
+	if err == nil {
+		t.Fatal("expected validation errors")
+	}
+	msg := err.Error()
+	if !strings.Contains(msg, `theme.modes["dark"]["color-blurple"]`) {
+		t.Errorf("expected mode overlay token error, got: %s", msg)
+	}
+	if !strings.Contains(msg, `theme.density "cozy"`) {
+		t.Errorf("expected density error, got: %s", msg)
+	}
+
+	page.Theme = &uispec.ThemeRef{
+		ID:      "brand",
+		Density: uispec.DensityCompact,
+		Tokens:  map[string]string{"primary": "#000"},
+		Modes:   map[string]map[string]string{"dark": {"surface": "#111"}},
+	}
+	if err := r.ValidatePage(page); err != nil {
+		t.Fatalf("valid modes/density should pass: %v", err)
+	}
+}

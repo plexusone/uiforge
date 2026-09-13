@@ -358,6 +358,18 @@
             "type": "string"
           },
           "type": "object"
+        },
+        "modes": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "density": {
+          "type": "string"
         }
       },
       "additionalProperties": false,

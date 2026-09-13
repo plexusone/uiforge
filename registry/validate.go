@@ -78,6 +78,17 @@ func (r *Registry) ValidatePage(page *uispec.PageSpec) error {
 				ve.add("theme.tokens[%q] is not in the design-token contract (see uispec.ValidThemeTokenKeys)", key)
 			}
 		}
+		for mode, overlay := range page.Theme.Modes {
+			for key := range overlay {
+				if !uispec.IsValidThemeToken(key) {
+					ve.add("theme.modes[%q][%q] is not in the design-token contract", mode, key)
+				}
+			}
+		}
+		if !uispec.IsValidDensity(page.Theme.Density) {
+			ve.add("theme.density %q is not valid (use %q or %q)",
+				page.Theme.Density, uispec.DensityComfortable, uispec.DensityCompact)
+		}
 	}
 
 	if page.Profile != "" {
