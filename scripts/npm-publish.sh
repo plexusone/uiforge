@@ -7,15 +7,24 @@
 # published semver (^<version>) for publishing, then restores package.json
 # and package-lock.json — the file: link is never committed as a version dep.
 #
-# Prerequisites: npm login (publish rights on the @plexusone scope),
+# Prerequisites: npm/pnpm login (publish rights on the @plexusone scope),
 # a clean git working tree, and all package versions in agreement.
 #
 # Usage:
-#   scripts/npm-publish.sh            # publish
-#   scripts/npm-publish.sh --dry-run  # everything except the actual publish
+#   scripts/npm-publish.sh                       # publish with npm
+#   NPM_CLIENT=pnpm scripts/npm-publish.sh       # publish with pnpm
+#   scripts/npm-publish.sh --dry-run             # everything except the publish
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
+
+CLIENT="${NPM_CLIENT:-npm}"
+EXTRA_FLAGS=""
+if [[ "$CLIENT" == "pnpm" ]]; then
+  # pnpm refuses to publish from a dirty tree; the temporary file:-dep
+  # rewrite below is exactly that, so disable its git check.
+  EXTRA_FLAGS="--no-git-checks"
+fi
 
 DRY_RUN=""
 if [[ "${1:-}" == "--dry-run" ]]; then
@@ -47,7 +56,7 @@ restore() {
 trap restore EXIT
 
 echo "--- @plexusone/uiforge-spec"
-(cd spec && npm publish --access public $DRY_RUN)
+(cd spec && "$CLIENT" publish --access public $EXTRA_FLAGS $DRY_RUN)
 
 for pkg in renderers/react renderers/lit; do
   name="$(node -p "require('./$pkg/package.json').name")"
@@ -57,7 +66,7 @@ for pkg in renderers/react renderers/lit; do
     npm pkg set "dependencies.@plexusone/uiforge-spec=^$SPEC_VERSION"
     # prepublishOnly (build + test) still runs against the locally built
     # spec/dist via the pre-rewrite node_modules symlink.
-    npm publish --access public $DRY_RUN
+    "$CLIENT" publish --access public $EXTRA_FLAGS $DRY_RUN
   )
 done
 
