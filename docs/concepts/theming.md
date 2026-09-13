@@ -32,6 +32,26 @@ css := t.CSS("uiforge-page.tenant-a")   // scoped stylesheet
 ref := t.ThemeRef("acme", theme.ModeDark) // or embed directly in a PageSpec
 ```
 
+## Modes and density
+
+`ThemeRef` supports per-mode token overlays and a spacing density:
+
+```json
+"theme": {
+  "id": "brand",
+  "variant": "dark",
+  "density": "compact",
+  "tokens": { "primary": "#0f766e", "surface": "#111111" },
+  "modes": { "light": { "primary": "#0d9488", "surface": "#ffffff" } }
+}
+```
+
+`variant` names the default mode; hosts switch at runtime via the `mode` prop (`PageRenderer`) or property (`<uiforge-page>`) — the active overlay applies over `tokens` and the page root carries `data-uiforge-mode`. `theme.FromDesignSystemWithModes` (Go) derives the overlays from a DSS document's per-token light/dark values, and `CSSWithModes` emits base + `[data-uiforge-mode="…"]` override blocks for stylesheet-based theming.
+
+`density: "compact"` stamps `data-uiforge-density` and publishes `--uiforge-density: 0.75`; the builtin packs scale their paddings with it (`calc(12px * var(--uiforge-density, 1))`) — custom components should do the same for density-aware spacing. Validation enforces that mode overlay keys stay on the token contract and that density is `comfortable`/`compact`.
+
+First-class density and generalized modes are proposed upstream to design-system-spec — see [the proposal](https://github.com/plexusone/uiforge/blob/main/docs/proposals/dss-density-and-modes.md).
+
 ## White-labeling
 
 With `SourcePrefix` set, generated bindings reference the host design system's own custom properties with raw values as fallbacks:
