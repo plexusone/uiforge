@@ -5,6 +5,8 @@ import (
 	"testing"
 
 	dss "github.com/plexusone/design-system-spec/sdk/go"
+
+	"github.com/plexusone/uiforge/uispec"
 )
 
 func fixture() *dss.DesignSystem {
@@ -141,6 +143,31 @@ func TestFromDesignSystemNoFoundations(t *testing.T) {
 	}
 	if _, err := FromDesignSystem(nil, Options{}); err == nil {
 		t.Error("expected error for nil design system")
+	}
+}
+
+// TestContractMatchesDSS guards the doc claim in uispec.ValidThemeTokenKeys:
+// the UIForge contract is exactly DSS's semantic vocabulary plus the
+// non-color category keys.
+func TestContractMatchesDSS(t *testing.T) {
+	want := map[string]bool{"font-family": true, "radius": true}
+	for _, s := range dss.ValidSemantics {
+		want[s] = true
+	}
+	got := map[string]bool{}
+	for _, k := range uispec.ValidThemeTokenKeys {
+		if got[k] {
+			t.Errorf("duplicate contract key %q", k)
+		}
+		got[k] = true
+		if !want[k] {
+			t.Errorf("contract key %q is neither a DSS semantic nor a UIForge category key", k)
+		}
+	}
+	for k := range want {
+		if !got[k] {
+			t.Errorf("missing contract key %q", k)
+		}
 	}
 }
 

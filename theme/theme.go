@@ -142,11 +142,11 @@ func (t *Theme) ThemeRef(id string, mode Mode) *uispec.ThemeRef {
 	return &uispec.ThemeRef{ID: id, Variant: string(mode), Tokens: tokens}
 }
 
-// ValidTokenKeys returns the token keys UIForge themes may use: the DSS
-// semantic vocabulary plus UIForge's non-color category keys.
+// ValidTokenKeys returns the token keys UIForge themes may use — the
+// canonical contract defined by uispec.ValidThemeTokenKeys (the DSS semantic
+// vocabulary plus UIForge's non-color category keys).
 func ValidTokenKeys() []string {
-	keys := append([]string{}, dss.ValidSemantics...)
-	return append(keys, "font-family", "radius")
+	return append([]string{}, uispec.ValidThemeTokenKeys...)
 }
 
 // ValidateTokens reports theme token keys that are not part of the UIForge
