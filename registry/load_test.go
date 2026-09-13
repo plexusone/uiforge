@@ -60,14 +60,14 @@ func TestLoadManifestInvalid(t *testing.T) {
 
 func TestLoadManifestDir(t *testing.T) {
 	dir := t.TempDir()
-	if err := os.WriteFile(filepath.Join(dir, "forecast.json"), []byte(validManifest), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "forecast.json"), []byte(validManifest), 0600); err != nil {
 		t.Fatal(err)
 	}
 	second := `{"id": "acme.widget", "version": "2.0.0", "category": "display", "runtime": "react"}`
-	if err := os.WriteFile(filepath.Join(dir, "widget.json"), []byte(second), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "widget.json"), []byte(second), 0600); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(dir, "notes.txt"), []byte("ignore me"), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "notes.txt"), []byte("ignore me"), 0600); err != nil {
 		t.Fatal(err)
 	}
 
