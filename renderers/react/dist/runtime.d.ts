@@ -35,5 +35,5 @@ export interface ExternalStoreRuntime {
     createConversation(title: string): Promise<Conversation>;
     deleteConversation(id: string): Promise<void>;
 }
-export declare function createAgentOSRuntime(config: RuntimeConfig): ExternalStoreRuntime;
+export declare function createExternalStoreRuntime(config: RuntimeConfig): ExternalStoreRuntime;
 //# sourceMappingURL=runtime.d.ts.map

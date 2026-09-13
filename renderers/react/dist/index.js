@@ -7,7 +7,7 @@ export { registerApplicationComponents, ApplicationInput, ApplicationSelect, App
 export { DataStatus, resolveBoundData, writeBinding } from './components/data-helpers.js';
 export { resolveBinding, resolveData, } from '@plexusone/uiforge-spec';
 export { AssistantThread, AssistantComposer, AssistantThreadList, AssistantToolCall, AssistantRunStatus, registerAssistantComponents, } from './components/assistant/index.js';
-export { createAgentOSRuntime } from './runtime.js';
+export { createExternalStoreRuntime } from './runtime.js';
 export { evaluateExpression, containsExpression, extractPaths } from '@plexusone/uiforge-spec';
 export { PageState } from '@plexusone/uiforge-spec';
 export { InteractionEngine } from '@plexusone/uiforge-spec';

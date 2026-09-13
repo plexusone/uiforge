@@ -38,7 +38,7 @@ export interface ExternalStoreRuntime {
   deleteConversation(id: string): Promise<void>
 }
 
-export function createAgentOSRuntime(config: RuntimeConfig): ExternalStoreRuntime {
+export function createExternalStoreRuntime(config: RuntimeConfig): ExternalStoreRuntime {
   const { baseUrl, headers: extraHeaders = {}, credentials = 'include' } = config
 
   function buildHeaders(): Record<string, string> {

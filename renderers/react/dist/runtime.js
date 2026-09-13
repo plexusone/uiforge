@@ -1,4 +1,4 @@
-export function createAgentOSRuntime(config) {
+export function createExternalStoreRuntime(config) {
     const { baseUrl, headers: extraHeaders = {}, credentials = 'include' } = config;
     function buildHeaders() {
         const h = {

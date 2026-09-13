@@ -64,7 +64,7 @@ export type {
   RunState,
 } from './components/assistant/index.js'
 
-export { createAgentOSRuntime } from './runtime.js'
+export { createExternalStoreRuntime } from './runtime.js'
 export type {
   Message,
   ToolCallRecord,

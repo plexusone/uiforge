@@ -10,7 +10,7 @@ export { DataStatus, resolveBoundData, writeBinding } from './components/data-he
 export { resolveBinding, resolveData, type BindingContext, type DataResolution, } from '@plexusone/uiforge-spec';
 export { AssistantThread, AssistantComposer, AssistantThreadList, AssistantToolCall, AssistantRunStatus, registerAssistantComponents, } from './components/assistant/index.js';
 export type { ThreadProps, ComposerProps, ThreadListProps, ToolCallProps, RunStatusProps, RunState, } from './components/assistant/index.js';
-export { createAgentOSRuntime } from './runtime.js';
+export { createExternalStoreRuntime } from './runtime.js';
 export type { Message, ToolCallRecord, Conversation, RuntimeConfig, ExternalStoreRuntime, } from './runtime.js';
 export { evaluateExpression, containsExpression, extractPaths } from '@plexusone/uiforge-spec';
 export { PageState } from '@plexusone/uiforge-spec';
