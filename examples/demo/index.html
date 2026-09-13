@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UIForge Demo — Lit renderer</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 24px;
+        background: #f1f5f9;
+        font-family: system-ui, sans-serif;
+      }
+      h1 {
+        font-size: 1.2rem;
+        color: #0f172a;
+      }
+      p.hint {
+        color: #64748b;
+        font-size: 0.85rem;
+      }
+    </style>
+    <!-- Resolve bare module specifiers against the Lit package's node_modules.
+         Serve this page from the repo root, e.g.:  python3 -m http.server  -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@plexusone/uiforge-spec": "../../spec/dist/index.js",
+          "lit": "../../renderers/lit/node_modules/lit/index.js",
+          "lit/": "../../renderers/lit/node_modules/lit/",
+          "lit-html": "../../renderers/lit/node_modules/lit-html/lit-html.js",
+          "lit-html/": "../../renderers/lit/node_modules/lit-html/",
+          "lit-element/": "../../renderers/lit/node_modules/lit-element/",
+          "@lit/reactive-element": "../../renderers/lit/node_modules/@lit/reactive-element/reactive-element.js",
+          "@lit/reactive-element/": "../../renderers/lit/node_modules/@lit/reactive-element/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>UIForge — sales dashboard rendered by &lt;uiforge-page&gt;</h1>
+    <p class="hint">
+      The entire page below is one declarative PageSpec (JSON) rendered by the Lit web-components
+      renderer. Change the region filter to see the interaction engine update page state and
+      re-render.
+    </p>
+    <uiforge-page id="demo"></uiforge-page>
+
+    <script type="module">
+      import {
+        registerCoreComponents,
+        registerAnalyticsComponents,
+      } from '../../renderers/lit/dist/index.js'
+
+      registerCoreComponents()
+      registerAnalyticsComponents()
+
+      const revenueByMonth = [
+        { month: 'Jan', revenue: 84000 },
+        { month: 'Feb', revenue: 91000 },
+        { month: 'Mar', revenue: 87000 },
+        { month: 'Apr', revenue: 104000 },
+        { month: 'May', revenue: 112000 },
+        { month: 'Jun', revenue: 128000 },
+      ]
+
+      const revenueByRegion = [
+        { region: 'West', revenue: 215000 },
+        { region: 'East', revenue: 178000 },
+        { region: 'North', revenue: 121000 },
+        { region: 'South', revenue: 92000 },
+      ]
+
+      const recentOrders = [
+        { order: 'SO-1041', region: 'West', customer: 'Acme Corp', total: 12800 },
+        { order: 'SO-1040', region: 'East', customer: 'Globex', total: 9400 },
+        { order: 'SO-1039', region: 'West', customer: 'Initech', total: 7250 },
+        { order: 'SO-1038', region: 'North', customer: 'Umbrella', total: 5900 },
+        { order: 'SO-1037', region: 'South', customer: 'Stark Industries', total: 21500 },
+      ]
+
+      const staticBinding = (value) => ({
+        source: 'static',
+        operation: 'value',
+        parameters: { value },
+      })
+
+      const demo = document.getElementById('demo')
+
+      // A live async data source: the orders table shows the loading state,
+      // then renders once this connector resolves.
+      demo.dataSources = [
+        {
+          id: 'sales-data',
+          execute: (operation) =>
+            new Promise((resolve) =>
+              setTimeout(() => resolve(operation === 'recentOrders' ? recentOrders : null), 1200),
+            ),
+        },
+      ]
+
+      demo.spec = {
+        apiVersion: 'ui.plexusone.dev/v1',
+        kind: 'Page',
+        metadata: { id: 'sales-demo', name: 'sales-demo', title: 'Sales Dashboard' },
+        profile: 'dashboard',
+        theme: {
+          id: 'demo',
+          tokens: { 'accent': '#0f766e', 'surface': '#ffffff' },
+        },
+        layout: { type: 'responsive-grid', config: { columns: 12, gap: '16px' } },
+        components: [
+          {
+            id: 'region-filter',
+            type: 'analytics.filter',
+            position: { row: 0, col: 0, colSpan: 3 },
+            properties: { label: 'Region', options: ['All', 'West', 'East', 'North', 'South'] },
+            data: {
+              value: {
+                source: 'state',
+                operation: 'get',
+                parameters: { path: 'filters.region' },
+                default: 'All',
+              },
+            },
+          },
+          {
+            id: 'revenue-metric',
+            type: 'analytics.metric',
+            position: { row: 0, col: 3, colSpan: 3 },
+            properties: { title: 'Total Revenue', format: 'currency', prefix: '$' },
+            data: { primary: staticBinding(606000) },
+          },
+          {
+            id: 'orders-metric',
+            type: 'analytics.metric',
+            position: { row: 0, col: 6, colSpan: 3 },
+            properties: { title: 'Orders' },
+            data: { primary: staticBinding(1041) },
+          },
+          {
+            id: 'health-gauge',
+            type: 'analytics.gauge',
+            position: { row: 0, col: 9, colSpan: 3 },
+            properties: { title: 'Quota Attainment', unit: '%', min: 0, max: 100 },
+            data: { primary: staticBinding(87) },
+          },
+          {
+            id: 'revenue-trend',
+            type: 'analytics.line-chart',
+            position: { row: 1, col: 0, colSpan: 7 },
+            properties: { title: 'Revenue Trend', xAxis: 'month', yAxis: 'revenue' },
+            data: { primary: staticBinding(revenueByMonth) },
+          },
+          {
+            id: 'region-breakdown',
+            type: 'analytics.bar-chart',
+            position: { row: 1, col: 7, colSpan: 5 },
+            properties: { title: 'Revenue by Region', xAxis: 'region', yAxis: 'revenue' },
+            data: { primary: staticBinding(revenueByRegion) },
+          },
+          {
+            id: 'orders-table',
+            type: 'analytics.table',
+            position: { row: 2, col: 0, colSpan: 9 },
+            properties: { title: 'Recent Orders' },
+            data: { primary: { source: 'sales-data', operation: 'recentOrders' } },
+          },
+          {
+            id: 'selection-note',
+            type: 'core.text',
+            position: { row: 2, col: 9, colSpan: 3 },
+            properties: { content: 'Region filter active', variant: 'caption' },
+            visibility: { condition: '${state.filters.active}' },
+          },
+        ],
+        interactions: [
+          {
+            when: { component: 'region-filter', event: 'change' },
+            then: [
+              {
+                target: 'selection-note',
+                action: 'state.set',
+                params: { path: 'filters.active', value: true },
+              },
+            ],
+          },
+        ],
+      }
+    </script>
+  </body>
+</html>
