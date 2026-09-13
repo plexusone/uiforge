@@ -81,6 +81,24 @@ func (r *Registry) ValidatePage(page *uispec.PageSpec) error {
 	}
 
 	if page.Profile != "" {
+		if pc, ok := BuiltinProfiles()[page.Profile]; ok && pc.AllowedCapabilities != nil {
+			allowed := map[string]bool{}
+			for _, c := range pc.AllowedCapabilities {
+				allowed[c] = true
+			}
+			for i, comp := range page.Components {
+				spec := r.Get(comp.Type)
+				if spec == nil {
+					continue // unregistered type already reported above
+				}
+				for _, cap := range spec.Capabilities {
+					if !allowed[cap] {
+						ve.add("components[%d] (%s): capability %q is not allowed in the %s profile",
+							i, comp.ID, cap, pc.Name)
+					}
+				}
+			}
+		}
 		if err := ValidateProfile(page); err != nil {
 			if pve, ok := err.(*ValidationError); ok {
 				ve.Errors = append(ve.Errors, pve.Errors...)

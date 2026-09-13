@@ -1,6 +1,10 @@
 package registry
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/plexusone/uiforge/uispec"
+)
 
 // RegisterApplicationComponents adds the application namespace components to
 // the registry: input, select, checkbox, form, record-detail, record-list,
@@ -29,6 +33,7 @@ func RegisterApplicationComponents(r *Registry) error {
 			Events: map[string]EventDef{
 				"change": {Description: "Value changed", Schema: json.RawMessage(`{"type":"object","properties":{"value":{"type":"string"}}}`)},
 			},
+			Capabilities: []string{uispec.CapabilityStateWrite},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"border", "surface", "text", "focus", "radius"},
 			},
@@ -53,6 +58,7 @@ func RegisterApplicationComponents(r *Registry) error {
 			Events: map[string]EventDef{
 				"change": {Description: "Selection changed", Schema: json.RawMessage(`{"type":"object","properties":{"value":{"type":"string"}}}`)},
 			},
+			Capabilities: []string{uispec.CapabilityStateWrite},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"border", "surface", "text", "focus", "radius"},
 			},
@@ -75,6 +81,7 @@ func RegisterApplicationComponents(r *Registry) error {
 			Events: map[string]EventDef{
 				"change": {Description: "Checked state changed", Schema: json.RawMessage(`{"type":"object","properties":{"checked":{"type":"boolean"}}}`)},
 			},
+			Capabilities: []string{uispec.CapabilityStateWrite},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"primary", "border", "text"},
 			},
@@ -116,6 +123,7 @@ func RegisterApplicationComponents(r *Registry) error {
 			Events: map[string]EventDef{
 				"edit": {Description: "Edit requested for a field", Schema: json.RawMessage(`{"type":"object","properties":{"field":{"type":"string"}}}`)},
 			},
+			Capabilities: []string{uispec.CapabilityDataRead},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"surface", "border", "text", "text-muted", "radius"},
 			},
@@ -139,6 +147,7 @@ func RegisterApplicationComponents(r *Registry) error {
 			Events: map[string]EventDef{
 				"select": {Description: "Record selected", Schema: json.RawMessage(`{"type":"object","properties":{"id":{"type":"string"}}}`)},
 			},
+			Capabilities: []string{uispec.CapabilityDataRead},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"surface", "border", "text", "text-muted", "radius"},
 			},

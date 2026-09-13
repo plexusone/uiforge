@@ -25,6 +25,8 @@
 |---|---|
 | `click` | Bar clicked |
 
+**Capabilities:** `data.read`
+
 **Layout constraints:** min width 250px; min height 200px
 
 **Design tokens:** `accent`
@@ -48,6 +50,8 @@
 | `change` | Filter value changed |
 | `clear` | Filter cleared |
 
+**Capabilities:** `data.read`, `state.write`
+
 **Design tokens:** `accent`, `border`
 
 ## `analytics.gauge`
@@ -68,6 +72,8 @@
 | Input | Type | Required | Description |
 |---|---|---|---|
 | `primary` | scalar | yes | Current gauge value |
+
+**Capabilities:** `data.read`
 
 **Layout constraints:** min width 120px; min height 120px
 
@@ -100,6 +106,8 @@
 | `click` | Data point clicked |
 | `zoomReset` | Zoom reset to default |
 
+**Capabilities:** `data.read`
+
 **Layout constraints:** min width 300px; min height 200px
 
 **Design tokens:** `accent`
@@ -129,6 +137,8 @@
 | Event | Description |
 |---|---|
 | `click` | Metric card clicked |
+
+**Capabilities:** `data.read`
 
 **Layout constraints:** min width 140px; min height 80px
 
@@ -161,6 +171,8 @@
 | `filter` | Column filter applied |
 | `rowClick` | Table row clicked |
 | `sort` | Column sort changed |
+
+**Capabilities:** `data.read`
 
 **Layout constraints:** min width 400px
 

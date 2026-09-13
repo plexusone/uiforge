@@ -1,6 +1,10 @@
 package registry
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/plexusone/uiforge/uispec"
+)
 
 // RegisterAnalyticsComponents adds the analytics namespace components to the registry:
 // line-chart, bar-chart, metric, table, filter, gauge.
@@ -31,6 +35,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 				"zoomReset": {Description: "Zoom reset to default"},
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "300px", MinHeight: "200px"},
+			Capabilities:      []string{uispec.CapabilityDataRead},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"accent"},
 			},
@@ -56,6 +61,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 				"click": {Description: "Bar clicked"},
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "250px", MinHeight: "200px"},
+			Capabilities:      []string{uispec.CapabilityDataRead},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"accent"},
 			},
@@ -84,6 +90,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 				"click": {Description: "Metric card clicked"},
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "140px", MinHeight: "80px"},
+			Capabilities:      []string{uispec.CapabilityDataRead},
 			DesignSystem: &DesignSystemRef{
 				Tokens:   []string{"success", "danger"},
 				Variants: []string{"default", "compact", "sparkline"},
@@ -113,6 +120,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 				"filter":   {Description: "Column filter applied"},
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "400px"},
+			Capabilities:      []string{uispec.CapabilityDataRead},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"border", "surface"},
 			},
@@ -137,6 +145,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 				"change": {Description: "Filter value changed"},
 				"clear":  {Description: "Filter cleared"},
 			},
+			Capabilities: []string{uispec.CapabilityDataRead, uispec.CapabilityStateWrite},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"accent", "border"},
 			},
@@ -161,6 +170,7 @@ func RegisterAnalyticsComponents(r *Registry) error {
 				"primary": {Type: "scalar", Description: "Current gauge value", Required: true},
 			},
 			LayoutConstraints: &LayoutConstraints{MinWidth: "120px", MinHeight: "120px"},
+			Capabilities:      []string{uispec.CapabilityDataRead},
 			DesignSystem: &DesignSystemRef{
 				Tokens: []string{"success", "warning", "danger"},
 			},

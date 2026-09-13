@@ -53,6 +53,8 @@
 |---|---|
 | `change` | Checked state changed |
 
+**Capabilities:** `state.write`
+
 **Design tokens:** `primary`, `border`, `text`
 
 ## `application.form`
@@ -96,6 +98,8 @@
 |---|---|
 | `change` | Value changed |
 
+**Capabilities:** `state.write`
+
 **Design tokens:** `border`, `surface`, `text`, `focus`, `radius`
 
 ## `application.record-detail`
@@ -118,6 +122,8 @@
 | Event | Description |
 |---|---|
 | `edit` | Edit requested for a field |
+
+**Capabilities:** `data.read`
 
 **Design tokens:** `surface`, `border`, `text`, `text-muted`, `radius`
 
@@ -143,6 +149,8 @@
 |---|---|
 | `select` | Record selected |
 
+**Capabilities:** `data.read`
+
 **Design tokens:** `surface`, `border`, `text`, `text-muted`, `radius`
 
 ## `application.select`
@@ -167,6 +175,8 @@
 | Event | Description |
 |---|---|
 | `change` | Selection changed |
+
+**Capabilities:** `state.write`
 
 **Design tokens:** `border`, `surface`, `text`, `focus`, `radius`
 

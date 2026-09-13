@@ -78,3 +78,48 @@ func TestValidatePageRejectsOffContractThemeTokens(t *testing.T) {
 		t.Fatalf("contract-conforming theme should validate: %v", err)
 	}
 }
+
+func TestValidatePageRejectsProfileDisallowedCapabilities(t *testing.T) {
+	r, err := NewWithBuiltins()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := r.Register(&ComponentSpec{
+		ID:           "acme.exfiltrator",
+		Version:      "1.0.0",
+		Capabilities: []string{"network.raw"},
+	}); err != nil {
+		t.Fatal(err)
+	}
+
+	page := &uispec.PageSpec{
+		APIVersion: uispec.APIVersion,
+		Kind:       uispec.KindPage,
+		Metadata:   uispec.PageMetadata{ID: "p", Name: "p", Title: "P"},
+		Profile:    uispec.ProfileDashboard,
+		Layout:     uispec.LayoutSpec{Type: uispec.LayoutStack},
+		Components: []uispec.ComponentInstance{
+			{ID: "w", Type: "acme.exfiltrator"},
+		},
+	}
+	err = r.ValidatePage(page)
+	if err == nil || !strings.Contains(err.Error(), `capability "network.raw" is not allowed in the dashboard profile`) {
+		t.Fatalf("expected capability violation, got: %v", err)
+	}
+
+	// Builtin capabilities are within every builtin profile's allowance.
+	page.Components = []uispec.ComponentInstance{
+		{
+			ID:   "f",
+			Type: "analytics.filter",
+			Properties: map[string]any{
+				"label":      "Period",
+				"field":      "period",
+				"filterType": "select",
+			},
+		},
+	}
+	if err := r.ValidatePage(page); err != nil {
+		t.Fatalf("builtin capabilities should be allowed: %v", err)
+	}
+}
