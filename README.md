@@ -1,5 +1,30 @@
 # UIForge
 
+[![Go CI][go-ci-svg]][go-ci-url]
+[![Go Lint][go-lint-svg]][go-lint-url]
+[![Go SAST][go-sast-svg]][go-sast-url]
+[![Docs][docs-godoc-svg]][docs-godoc-url]
+[![DevGuide][docs-mkdoc-svg]][docs-mkdoc-url]
+[![Visualization][viz-svg]][viz-url]
+[![License][license-svg]][license-url]
+
+ [go-ci-svg]: https://github.com/plexusone/uiforge/actions/workflows/go-ci.yaml/badge.svg?branch=main
+ [go-ci-url]: https://github.com/plexusone/uiforge/actions/workflows/go-ci.yaml
+ [go-lint-svg]: https://github.com/plexusone/uiforge/actions/workflows/go-lint.yaml/badge.svg?branch=main
+ [go-lint-url]: https://github.com/plexusone/uiforge/actions/workflows/go-lint.yaml
+ [go-sast-svg]: https://github.com/plexusone/uiforge/actions/workflows/go-sast-codeql.yaml/badge.svg?branch=main
+ [go-sast-url]: https://github.com/plexusone/uiforge/actions/workflows/go-sast-codeql.yaml
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/plexusone/uiforge
+ [docs-godoc-url]: https://pkg.go.dev/github.com/plexusone/uiforge
+ [docs-mkdoc-svg]: https://img.shields.io/badge/Go-dev%20guide-blue.svg
+ [docs-mkdoc-url]: https://plexusone.github.io/uiforge
+ [viz-svg]: https://img.shields.io/badge/visualizaton-Go-blue.svg
+ [viz-url]: https://mango-dune-07a8b7110.1.azurestaticapps.net/?repo=plexusone%2Fuiforge
+ [loc-svg]: https://tokei.rs/b1/github/plexusone/uiforge
+ [repo-url]: https://github.com/plexusone/uiforge
+ [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
+ [license-url]: https://github.com/plexusone/uiforge/blob/main/LICENSE
+
 UIForge is a **specification-driven UI composition platform**. Pages are described in **UISpec** — a deterministic JSON Intermediate Representation — validated against a versioned component registry, and rendered by interchangeable runtimes (React and standard web components via Lit).
 
 The core idea: **code defines component capabilities; the spec composes and configures them.** Instead of hand-coding every screen, teams (and AI agents) author declarative PageSpecs that reference registered, contract-checked components — the same model that powers customizable platforms like Salesforce Lightning, Splunk Dashboard Studio, and Shopify themes, but as a vendor-neutral open foundation.
