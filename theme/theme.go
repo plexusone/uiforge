@@ -133,6 +133,56 @@ func (t *Theme) CSS(selector string) string {
 	return b.String()
 }
 
+// FromDesignSystemWithModes builds a theme whose base tokens use each
+// token's default value and whose Modes overlays carry the light/dark
+// values that differ from the base — enabling runtime mode switching
+// without regenerating the theme.
+func FromDesignSystemWithModes(ds *dss.DesignSystem, opts Options) (*Theme, *uispec.ThemeRef, error) {
+	base, err := FromDesignSystem(ds, Options{SourcePrefix: opts.SourcePrefix})
+	if err != nil {
+		return nil, nil, err
+	}
+	modes := map[string]map[string]string{}
+	for _, mode := range []Mode{ModeLight, ModeDark} {
+		variant, err := FromDesignSystem(ds, Options{SourcePrefix: opts.SourcePrefix, Mode: mode})
+		if err != nil {
+			return nil, nil, err
+		}
+		overlay := map[string]string{}
+		for k, v := range variant.Tokens {
+			if base.Tokens[k] != v {
+				overlay[k] = v
+			}
+		}
+		if len(overlay) > 0 {
+			modes[string(mode)] = overlay
+		}
+	}
+	ref := base.ThemeRef("", opts.Mode)
+	ref.Modes = modes
+	return base, ref, nil
+}
+
+// CSSWithModes renders the base tokens under the selector plus one override
+// block per mode, keyed by the data-uiforge-mode attribute the renderers set:
+//
+//	selector { --uiforge-...: base }
+//	selector[data-uiforge-mode="dark"] { --uiforge-...: overlay }
+func (t *Theme) CSSWithModes(selector string, modes map[string]map[string]string) string {
+	var b strings.Builder
+	b.WriteString(t.CSS(selector))
+	modeNames := make([]string, 0, len(modes))
+	for m := range modes {
+		modeNames = append(modeNames, m)
+	}
+	sort.Strings(modeNames)
+	for _, m := range modeNames {
+		overlay := Theme{Tokens: modes[m]}
+		b.WriteString(overlay.CSS(fmt.Sprintf("%s[data-uiforge-mode=%q]", selector, m)))
+	}
+	return b.String()
+}
+
 // ThemeRef converts the theme into a uispec.ThemeRef for embedding directly
 // in a PageSpec. The renderers apply each token as --uiforge-<key> on the
 // page root, which scopes the brand to that page instance.

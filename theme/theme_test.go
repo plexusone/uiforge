@@ -185,3 +185,29 @@ func TestValidateTokens(t *testing.T) {
 		t.Errorf("expected no unknown keys, got %v", got)
 	}
 }
+
+func TestFromDesignSystemWithModes(t *testing.T) {
+	base, ref, err := FromDesignSystemWithModes(fixture(), Options{Mode: ModeDark})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if base.Tokens["primary"] != "#0f766e" {
+		t.Errorf("base primary = %q, want default value", base.Tokens["primary"])
+	}
+	light, ok := ref.Modes["light"]
+	if !ok || light["primary"] != "#0d9488" {
+		t.Errorf("light overlay = %v, want primary override", ref.Modes)
+	}
+	if _, ok := ref.Modes["dark"]; ok {
+		t.Errorf("dark overlay should be absent when identical to base: %v", ref.Modes)
+	}
+	if ref.Variant != "dark" {
+		t.Errorf("ref.Variant = %q, want dark", ref.Variant)
+	}
+
+	css := base.CSSWithModes("uiforge-page", ref.Modes)
+	if !strings.Contains(css, "uiforge-page {\n") ||
+		!strings.Contains(css, `uiforge-page[data-uiforge-mode="light"] {`+"\n  --uiforge-primary: #0d9488;") {
+		t.Errorf("CSSWithModes output wrong:\n%s", css)
+	}
+}
