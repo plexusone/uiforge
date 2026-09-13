@@ -1,0 +1,18 @@
+name: Docs Deploy
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/mkdocs-deploy.yaml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: plexusone/.github/.github/workflows/mkdocs-deploy.yaml@main

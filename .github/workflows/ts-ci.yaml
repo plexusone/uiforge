@@ -1,0 +1,63 @@
+name: TypeScript CI
+permissions:
+  contents: read
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'spec/**'
+      - 'renderers/**'
+      - '.github/workflows/ts-ci.yaml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'spec/**'
+      - 'renderers/**'
+      - '.github/workflows/ts-ci.yaml'
+  workflow_dispatch:
+
+jobs:
+  spec:
+    uses: plexusone/.github/.github/workflows/ts-ci.yaml@main
+    with:
+      working-directory: spec
+  renderer-react:
+    uses: plexusone/.github/.github/workflows/ts-ci.yaml@main
+    with:
+      working-directory: renderers/react
+  renderer-lit:
+    uses: plexusone/.github/.github/workflows/ts-ci.yaml@main
+    with:
+      working-directory: renderers/lit
+
+  # The packages commit their compiled dist/ so they are consumable from a
+  # repo checkout before npm publishing. This job rebuilds all three from
+  # source (spec first — the renderers depend on it via file: links) and
+  # fails if the committed dist has drifted from the sources.
+  dist-freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+          cache-dependency-path: |
+            spec/package-lock.json
+            renderers/react/package-lock.json
+            renderers/lit/package-lock.json
+      - name: Build spec
+        working-directory: spec
+        run: npm ci && npm run build
+      - name: Build React renderer
+        working-directory: renderers/react
+        run: npm ci && npm run build
+      - name: Build Lit renderer
+        working-directory: renderers/lit
+        run: npm ci && npm run build
+      - name: Verify committed dist is current
+        run: git diff --exit-code spec/dist renderers/react/dist renderers/lit/dist
