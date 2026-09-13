@@ -92,6 +92,10 @@ if errs := r.ValidatePage(&page); len(errs) > 0 {
 
 ## Quick start (web components)
 
+```bash
+pnpm add @plexusone/uiforge-renderer-lit   # or npm install
+```
+
 ```ts
 import { registerCoreComponents } from '@plexusone/uiforge-renderer-lit'
 

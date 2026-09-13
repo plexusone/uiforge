@@ -102,7 +102,7 @@ The full runtime — connector interface, tiered resolution, per-component cachi
 
 A fixture-driven conformance suite (`conformance.test.ts(x)` in each renderer package) renders every golden fixture in both renderers and asserts the shared DOM vocabulary — keep the two test files aligned.
 
-Both renderers depend on **`@plexusone/uiforge-spec`** (`spec/`) — the renderer-independent package holding the UISpec TS types (mirroring the Go source of truth) and the framework-free runtime engines. The dependency is a `file:../../spec` link until npm publishing (RMI-UIFORGE-113) replaces it with a version; until then, renderer packages are consumable only from a full repo checkout. Build order: `spec/` first, then renderers.
+Both renderers depend on **`@plexusone/uiforge-spec`** (`spec/`) — the renderer-independent package holding the UISpec TS types (mirroring the Go source of truth) and the framework-free runtime engines. In the repository the dependency is a `file:../../spec` link for local development; `scripts/npm-publish.sh` rewrites it to a semver range at publish time, so the published packages depend on `@plexusone/uiforge-spec` from the registry. Build order in a checkout: `spec/` first, then renderers.
 
 ## Design System Integration
 

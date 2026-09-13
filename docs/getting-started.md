@@ -76,14 +76,15 @@ export function App() {
 }
 ```
 
-!!! note "Package availability"
-    The npm packages are not yet published; consume them from a repository checkout. The renderer packages depend on `@plexusone/uiforge-spec` via a `file:` link, so build `spec/` first:
+## Install
 
-    ```bash
-    cd spec && npm install && npm run build
-    cd ../renderers/react && npm install && npm run build
-    cd ../lit && npm install && npm run build
-    ```
+```bash
+pnpm add @plexusone/uiforge-renderer-lit   # web components
+pnpm add @plexusone/uiforge-renderer       # React
+pnpm add @plexusone/uiforge-spec           # types + engines only
+```
+
+(or `npm install` — the packages are plain ESM with no install scripts.)
 
 ## Run the demo
 
