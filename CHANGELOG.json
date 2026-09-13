@@ -1,0 +1,113 @@
+{
+  "irVersion": "1.0",
+  "project": "uiforge",
+  "repository": "https://github.com/plexusone/uiforge",
+  "versioning": "semver",
+  "commitConvention": "conventional",
+  "maintainers": [
+    "johncwang@gmail.com"
+  ],
+  "releases": [
+    {
+      "version": "v0.1.0",
+      "date": "2026-09-12",
+      "commit": "ea243a8",
+      "highlights": [
+        {
+          "description": "Specification-driven UI composition platform: pages are declarative PageSpec JSON (apiVersion ui.plexusone.dev/v1) validated against a versioned component registry, with Go types as the source of truth and generated JSON Schemas"
+        },
+        {
+          "description": "Two fully parallel renderers — React and standard web components via Lit — emitting an identical data-uiforge-* DOM vocabulary, verified by fixture-driven cross-renderer conformance suites"
+        },
+        {
+          "description": "Async data-source runtime in both renderers: pluggable connectors, loading/error states, per-component caching, and cache invalidation via the component.refresh interaction action"
+        },
+        {
+          "description": "Design-system integration built on design-system-spec (DSS): components consume a fixed semantic token vocabulary, and the theme adapter maps any DSS document onto it — including white-label var() references to the host brand's own CSS custom property prefix"
+        }
+      ],
+      "added": [
+        {
+          "description": "UISpec core Go types: PageSpec, ComponentInstance, LayoutSpec (responsive-grid, stack, split-pane, tabs, application-shell), Binding, Interaction, NavigationSpec, VisibilityRule, ThemeRef, and profile constraints",
+          "commit": "8ff0a3c",
+          "rmis": ["RMI-UIFORGE-102"]
+        },
+        {
+          "description": "Component registry with ComponentSpec manifests and page validation, builtin core/analytics/assistant/application namespaces (25 manifests), external manifest loading (file and directory), version compatibility checking (exact, prefix, and caret forms), and instance property validation against manifest schemas",
+          "commit": "a47ec45",
+          "rmis": ["RMI-UIFORGE-102", "RMI-UIFORGE-112", "RMI-UIFORGE-118"]
+        },
+        {
+          "description": "Runtime engines: ${...} expression evaluation, hierarchical page state store, event-to-action interaction engine, and PageSpec tree diffing",
+          "commit": "0d3113c",
+          "rmis": ["RMI-UIFORGE-102"]
+        },
+        {
+          "description": "JSON Schema generation from the Go types (draft 2020-12) with schemas embedded via go:embed for runtime validation",
+          "commit": "6f6d6c7",
+          "rmis": ["RMI-UIFORGE-103"]
+        },
+        {
+          "description": "theme package: adapts design-system-spec documents into UIForge themes — semantic token bindings, light/dark mode selection, scoped stylesheet generation, and configurable source-prefix var() references for white-labeling",
+          "commit": "16c51b4",
+          "rmis": ["RMI-UIFORGE-116"]
+        },
+        {
+          "description": "@plexusone/uiforge-spec: shared TypeScript package holding the UISpec types and the framework-free expression/state/interaction/datasource/data engines consumed by both renderers",
+          "commit": "b266f93",
+          "rmis": ["RMI-UIFORGE-109"]
+        },
+        {
+          "description": "@plexusone/uiforge-renderer: React renderer with all five layouts, sidebar navigation, error boundaries, visibility rules, theme tokens, the async data runtime, and core/analytics/application component packs (18 components)",
+          "commit": "b274c6c",
+          "rmis": ["RMI-UIFORGE-104", "RMI-UIFORGE-117", "RMI-UIFORGE-118", "RMI-UIFORGE-119", "RMI-UIFORGE-121"]
+        },
+        {
+          "description": "@plexusone/uiforge-renderer-lit: Lit web-components renderer (<uiforge-page>) with layout, navigation, children/slot, engine, and component-pack parity with the React renderer",
+          "commit": "971e60d",
+          "rmis": ["RMI-UIFORGE-106", "RMI-UIFORGE-107", "RMI-UIFORGE-108", "RMI-UIFORGE-117", "RMI-UIFORGE-118", "RMI-UIFORGE-119", "RMI-UIFORGE-121"]
+        },
+        {
+          "description": "Browser demo of the Lit renderer: a full sales dashboard from one inline PageSpec with a live async data source, served with no bundler via import maps",
+          "commit": "abdd1f1",
+          "rmis": ["RMI-UIFORGE-121"]
+        }
+      ],
+      "tests": [
+        {
+          "description": "Go unit and golden tests: five PageSpec fixtures validated through the registry, covering all builtin namespaces and the application profile",
+          "commit": "1c5804d",
+          "rmis": ["RMI-UIFORGE-105"]
+        },
+        {
+          "description": "React renderer suite (33 tests) plus fixture-driven conformance tests asserting the shared DOM vocabulary",
+          "commit": "ffdcc6a",
+          "rmis": ["RMI-UIFORGE-105", "RMI-UIFORGE-110"]
+        },
+        {
+          "description": "Lit renderer suite (39 tests): layouts, application components against the customer-record fixture, async data runtime, and conformance",
+          "commit": "10e4879",
+          "rmis": ["RMI-UIFORGE-110", "RMI-UIFORGE-118", "RMI-UIFORGE-121"]
+        },
+        {
+          "description": "Shared engine suite (44 tests) running under plain Node in @plexusone/uiforge-spec",
+          "commit": "b266f93",
+          "rmis": ["RMI-UIFORGE-109"]
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Product and technical specs (PRD, TRD, PLAN, ROADMAP with RMI-UIFORGE-101+ numbering), README, and repository CLAUDE.md",
+          "commit": "dd26ff1",
+          "rmis": ["RMI-UIFORGE-101"]
+        }
+      ],
+      "dependencies": [
+        {
+          "description": "Go: github.com/invopop/jsonschema v0.14.0 (schema generation), github.com/plexusone/design-system-spec v0.5.0 (theme adapter); npm: lit ^3.3.0",
+          "commit": "c7f7d34"
+        }
+      ]
+    }
+  ]
+}
