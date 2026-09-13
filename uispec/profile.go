@@ -15,4 +15,8 @@ type ProfileConstraints struct {
 	AllowedNamespaces []string `json:"allowedNamespaces"`
 	RequiredSlots     []string `json:"requiredSlots,omitempty"`
 	MaxDepth          int      `json:"maxDepth,omitempty"`
+	// AllowedCapabilities restricts which capabilities components used under
+	// this profile may declare. nil means unrestricted; a non-nil list means
+	// every capability a component's manifest declares must appear in it.
+	AllowedCapabilities []string `json:"allowedCapabilities,omitempty"`
 }
