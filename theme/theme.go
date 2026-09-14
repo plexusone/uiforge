@@ -49,6 +49,14 @@ type Options struct {
 	// document declares. Tokens without a value for the selected mode fall
 	// back to their base value.
 	Mode Mode
+
+	// Density selects the page's default density ID — any key present in
+	// the DSS document's Foundations.Densities (e.g. "comfortable",
+	// "compact", or a document-specific name). It's copied through to the
+	// generated ThemeRef.Density; FromDesignSystemWithModes resolves every
+	// declared density's scale into ThemeRef.Densities regardless of this
+	// selection, so renderers can switch among them at runtime.
+	Density string
 }
 
 // Theme is a resolved set of UIForge token bindings.
@@ -142,6 +150,12 @@ func (t *Theme) CSS(selector string) string {
 // regenerating the theme. Overlays are generated for every mode the DSS
 // document declares (declaredModes), so a document with a "high-contrast"
 // mode produces a "high-contrast" overlay alongside light/dark.
+//
+// It also resolves every density the document declares (Foundations.
+// Densities) into ref.Densities, keyed by ID, and copies opts.Density
+// through as ref.Density — renderers look up ref.Densities[ref.Density] for
+// the --uiforge-density scale factor, so no DSS access is needed at render
+// time.
 func FromDesignSystemWithModes(ds *dss.DesignSystem, opts Options) (*Theme, *uispec.ThemeRef, error) {
 	base, err := FromDesignSystem(ds, Options{SourcePrefix: opts.SourcePrefix})
 	if err != nil {
@@ -165,6 +179,14 @@ func FromDesignSystemWithModes(ds *dss.DesignSystem, opts Options) (*Theme, *uis
 	}
 	ref := base.ThemeRef("", opts.Mode)
 	ref.Modes = modes
+	ref.Density = opts.Density
+	if densities := ds.Foundations.Densities; len(densities) > 0 {
+		scales := make(map[string]float64, len(densities))
+		for _, d := range densities {
+			scales[d.ID] = d.Scale
+		}
+		ref.Densities = scales
+	}
 	return base, ref, nil
 }
 

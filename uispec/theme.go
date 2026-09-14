@@ -9,21 +9,18 @@ type ThemeRef struct {
 	// time the active mode's overlay is applied on top of Tokens; Variant
 	// names the default mode, and renderers can switch modes at runtime.
 	Modes map[string]map[string]string `json:"modes,omitempty"`
-	// Density selects the spacing density: "" or DensityComfortable for the
-	// default, DensityCompact for tighter spacing. Renderers surface it as a
-	// data-uiforge-density attribute and a --uiforge-density scale factor.
+
+	// Density selects the active spacing density by ID — any key present in
+	// Densities (e.g. "comfortable", "compact", or a document-specific name
+	// like "spacious"). Renderers surface it as a data-uiforge-density
+	// attribute. A density with no matching Densities entry is invalid.
 	Density string `json:"density,omitempty"`
-}
-
-// Density values.
-const (
-	DensityComfortable = "comfortable"
-	DensityCompact     = "compact"
-)
-
-// IsValidDensity reports whether d is a recognized density value.
-func IsValidDensity(d string) bool {
-	return d == "" || d == DensityComfortable || d == DensityCompact
+	// Densities holds every declared density's spacing scale multiplier,
+	// keyed by ID — resolved from a design system's foundations by
+	// theme.FromDesignSystemWithModes. Renderers look up densities[density]
+	// for the --uiforge-density CSS custom property, falling back to 1 when
+	// absent.
+	Densities map[string]float64 `json:"densities,omitempty"`
 }
 
 // ValidThemeTokenKeys is UIForge's design-token contract: the semantic color

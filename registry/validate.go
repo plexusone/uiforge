@@ -2,6 +2,7 @@ package registry
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/plexusone/uiforge/uispec"
@@ -85,9 +86,16 @@ func (r *Registry) ValidatePage(page *uispec.PageSpec) error {
 				}
 			}
 		}
-		if !uispec.IsValidDensity(page.Theme.Density) {
-			ve.add("theme.density %q is not valid (use %q or %q)",
-				page.Theme.Density, uispec.DensityComfortable, uispec.DensityCompact)
+		if page.Theme.Density != "" {
+			if _, ok := page.Theme.Densities[page.Theme.Density]; !ok {
+				ve.add("theme.density %q is not declared in theme.densities (declared: %v)",
+					page.Theme.Density, sortedKeys(page.Theme.Densities))
+			}
+		}
+		for id, scale := range page.Theme.Densities {
+			if scale <= 0 {
+				ve.add("theme.densities[%q] scale must be positive, got %v", id, scale)
+			}
 		}
 	}
 
@@ -168,6 +176,17 @@ func (r *Registry) validateComponent(ve *ValidationError, comp *uispec.Component
 	for _, child := range comp.Children {
 		r.validateComponent(ve, &child, idx)
 	}
+}
+
+// sortedKeys returns the keys of a float64-valued map in sorted order, for
+// deterministic validation error messages.
+func sortedKeys(m map[string]float64) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
 }
 
 var validLayoutTypes = map[string]bool{

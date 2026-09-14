@@ -279,3 +279,46 @@ func TestFromDesignSystemWithModesGeneralized(t *testing.T) {
 		}
 	}
 }
+
+// TestFromDesignSystemWithModesDensities guards that FromDesignSystemWithModes
+// resolves every declared density's scale into ref.Densities, keyed by ID, and
+// copies opts.Density through as ref.Density — the same "resolve at build
+// time" shape as Modes.
+func TestFromDesignSystemWithModesDensities(t *testing.T) {
+	ds := fixture()
+	ds.Foundations.Densities = []dss.DensityToken{
+		{ID: "comfortable", Scale: 1.0},
+		{ID: "compact", Scale: 0.75},
+	}
+	_, ref, err := FromDesignSystemWithModes(ds, Options{Density: "compact"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if ref.Density != "compact" {
+		t.Errorf("ref.Density = %q, want compact", ref.Density)
+	}
+	want := map[string]float64{"comfortable": 1.0, "compact": 0.75}
+	if len(ref.Densities) != len(want) {
+		t.Fatalf("ref.Densities = %v, want %v", ref.Densities, want)
+	}
+	for id, scale := range want {
+		if ref.Densities[id] != scale {
+			t.Errorf("ref.Densities[%q] = %v, want %v", id, ref.Densities[id], scale)
+		}
+	}
+}
+
+// TestFromDesignSystemWithModesNoDensities guards that a document declaring
+// no densities leaves ref.Densities empty rather than fabricating entries.
+func TestFromDesignSystemWithModesNoDensities(t *testing.T) {
+	_, ref, err := FromDesignSystemWithModes(fixture(), Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(ref.Densities) != 0 {
+		t.Errorf("ref.Densities = %v, want empty", ref.Densities)
+	}
+	if ref.Density != "" {
+		t.Errorf("ref.Density = %q, want empty", ref.Density)
+	}
+}

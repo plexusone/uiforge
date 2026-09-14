@@ -149,16 +149,30 @@ func TestValidatePageThemeModesAndDensity(t *testing.T) {
 		t.Errorf("expected mode overlay token error, got: %s", msg)
 	}
 	if !strings.Contains(msg, `theme.density "cozy"`) {
-		t.Errorf("expected density error, got: %s", msg)
+		t.Errorf("expected density error (not declared in theme.densities), got: %s", msg)
 	}
 
+	// A density that's a key in Densities passes, regardless of name —
+	// openness isn't limited to "comfortable"/"compact".
 	page.Theme = &uispec.ThemeRef{
-		ID:      "brand",
-		Density: uispec.DensityCompact,
-		Tokens:  map[string]string{"primary": "#000"},
-		Modes:   map[string]map[string]string{"dark": {"surface": "#111"}},
+		ID:        "brand",
+		Density:   "spacious",
+		Densities: map[string]float64{"spacious": 1.25, "compact": 0.75},
+		Tokens:    map[string]string{"primary": "#000"},
+		Modes:     map[string]map[string]string{"dark": {"surface": "#111"}},
 	}
 	if err := r.ValidatePage(page); err != nil {
 		t.Fatalf("valid modes/density should pass: %v", err)
+	}
+
+	// A non-positive scale is rejected even if the ID matches Density.
+	page.Theme = &uispec.ThemeRef{
+		ID:        "brand",
+		Density:   "compact",
+		Densities: map[string]float64{"compact": 0},
+	}
+	err = r.ValidatePage(page)
+	if err == nil || !strings.Contains(err.Error(), `theme.densities["compact"] scale must be positive`) {
+		t.Errorf("expected non-positive scale error, got: %v", err)
 	}
 }
