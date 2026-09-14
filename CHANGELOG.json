@@ -12,6 +12,10 @@
       {
         "description": "theme package migrated to design-system-spec v0.7.0's first-class modes: colorValue and FromDesignSystemWithModes now read ColorToken.EffectiveModes()/DesignSystem.Modes directly instead of deriving light/dark overlays by diffing three generated theme variants; overlays are generated for every mode a document declares, not just light/dark",
         "rmis": ["RMI-UIFORGE-127"]
+      },
+      {
+        "description": "BREAKING: ThemeRef.density replaced the closed comfortable/compact enum (uispec.DensityComfortable/DensityCompact/IsValidDensity removed) with an open ID/scale pair: density selects a key in the new densities map, resolved from a DSS document's Foundations.Densities by theme.FromDesignSystemWithModes. Validation is now structural (density must be a key in densities) instead of a fixed two-value check. Both renderers read densities[density] for --uiforge-density identically; component packs are unchanged since they only ever consumed the resolved CSS variable",
+        "rmis": ["RMI-UIFORGE-128"]
       }
     ]
   },

@@ -2,7 +2,7 @@
 
 **From:** UIForge (github.com/plexusone/uiforge)
 **To:** systemspec-designsystem (github.com/plexusone/systemspec-designsystem, formerly design-system-spec)
-**Status:** Filed and closed as [systemspec-designsystem#9](https://github.com/plexusone/systemspec-designsystem/issues/9) — modes shipped in DSS v0.7.0; density is not yet addressed upstream (see §2)
+**Status:** Filed and closed as [systemspec-designsystem#9](https://github.com/plexusone/systemspec-designsystem/issues/9) — both modes and density shipped in DSS v0.7.0 and are now consumed by UIForge's `theme` package (RMI-UIFORGE-127 for modes, RMI-UIFORGE-128 for density; scope limited to the scale factor, not per-token `spacingOverrides` — see §2)
 
 ## Motivation
 
@@ -23,18 +23,14 @@ DSS v0.7.0 shipped this half of the proposal: a document-level `modes` declarati
 - `dss lint` checks: every declared mode resolves every semantic token (completeness), and contrast metadata per mode.
 - `GenerateCSS` emitting mode override blocks keyed by a selector convention (attribute or class), mirroring what consumers already do by hand.
 
-## 2. Density
+## 2. Density — shipped in DSS v0.7.0, consumed by UIForge in RMI-UIFORGE-128
 
-**Today:** DSS has a spacing scale but no density concept — no way to say "compact mode multiplies spacing by 0.75" or to declare per-density token values.
+DSS v0.7.0 shipped this half of the proposal too: `Foundations.Densities` (named densities with a `scale` multiplier and optional per-token `spacingOverrides`), `ThemeToken.densitySensitive`, and density-aware CSS generation (`[data-density="…"]` blocks, a `--density` custom property). UIForge's `theme` package no longer has its own closed density model — `ThemeRef.Density`/`Densities` are an open ID/scale pair resolved by `theme.FromDesignSystemWithModes` from `Foundations.Densities`, replacing the old fixed `comfortable`/`compact` enum (a breaking change, RMI-UIFORGE-128 — no backward-compat constraint, since the old enum predated any DSS integration at all). Scope is intentionally limited to the scale factor: DSS's per-token `spacingOverrides` aren't consumed, since UIForge has no spacing-token vocabulary for components to bind against — a candidate future extension if that's ever added.
 
-**UIForge's downstream model:** `ThemeRef.density ∈ {comfortable, compact}`; renderers stamp `data-uiforge-density` and publish a `--uiforge-density` scale factor (1 / 0.75) that component spacing consumes via `calc()`.
+**Before this proposal:** DSS had a spacing scale but no density concept — no way to say "compact mode multiplies spacing by 0.75" or to declare per-density token values.
 
-**Proposed for DSS:**
-
-- A `density` section under foundations: named densities with either a spacing multiplier (`{ "compact": { "scale": 0.75 } }`) or per-density spacing-token overrides for non-linear designs.
-- Components' `themingContract` able to declare density-sensitive tokens.
-- Generated CSS exposing the density factor as a custom property so consumers share one convention.
+**UIForge's original downstream model (pre-DSS-integration):** `ThemeRef.density ∈ {comfortable, compact}`, a fixed enum with no connection to any design system document; renderers stamped `data-uiforge-density` and published a hardcoded `--uiforge-density: 0.75` for `compact` only. Component spacing consumes the scale via `calc()`, unchanged by either the original model or the current one.
 
 ## Compatibility
 
-Both proposals are additive. The existing `lightModeValue`/`darkModeValue` pair can be kept as sugar for the generalized map; documents without `modes`/`density` behave exactly as today. UIForge would migrate its adapter (`theme` package) to the first-class fields once available and delete its diff-based derivation.
+Both proposals were additive **on the DSS side** — the existing `lightModeValue`/`darkModeValue` pair is kept as sugar for the generalized map, and documents without `modes`/`densities` behave exactly as before. UIForge's own adapter migrations were not required to preserve backward compatibility with the old downstream models: RMI-UIFORGE-127 (modes) was additive, but RMI-UIFORGE-128 (density) was a deliberate breaking change — the old `comfortable`/`compact` enum wasn't derived from any DSS document, so there was no meaningful compatibility to preserve, and the open ID/scale model needed for full openness isn't representable as a closed TypeScript union anyway.

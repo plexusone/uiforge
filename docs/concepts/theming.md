@@ -34,13 +34,14 @@ ref := t.ThemeRef("acme", theme.ModeDark) // or embed directly in a PageSpec
 
 ## Modes and density
 
-`ThemeRef` supports per-mode token overlays and a spacing density:
+`ThemeRef` supports per-mode token overlays and an open, document-defined set of spacing densities:
 
 ```json
 "theme": {
   "id": "brand",
   "variant": "dark",
   "density": "compact",
+  "densities": { "comfortable": 1, "compact": 0.75 },
   "tokens": { "primary": "#0f766e", "surface": "#111111" },
   "modes": { "light": { "primary": "#0d9488", "surface": "#ffffff" } }
 }
@@ -48,9 +49,9 @@ ref := t.ThemeRef("acme", theme.ModeDark) // or embed directly in a PageSpec
 
 `variant` names the default mode; hosts switch at runtime via the `mode` prop (`PageRenderer`) or property (`<uiforge-page>`) — the active overlay applies over `tokens` and the page root carries `data-uiforge-mode`. `theme.FromDesignSystemWithModes` (Go) derives overlays for every mode the DSS document declares (or light/dark, for documents that only use the `lightModeValue`/`darkModeValue` sugar fields), and `CSSWithModes` emits base + `[data-uiforge-mode="…"]` override blocks for stylesheet-based theming.
 
-`density: "compact"` stamps `data-uiforge-density` and publishes `--uiforge-density: 0.75`; the builtin packs scale their paddings with it (`calc(12px * var(--uiforge-density, 1))`) — custom components should do the same for density-aware spacing. Validation enforces that mode overlay keys stay on the token contract and that density is `comfortable`/`compact`.
+`density` selects a key in `densities`, which holds every declared density's spacing scale multiplier (any names, not just `comfortable`/`compact`) — resolved from a DSS document's `Foundations.Densities` by the same `theme.FromDesignSystemWithModes`. Renderers stamp `data-uiforge-density` and, when `density` has a matching `densities` entry, publish `--uiforge-density: <scale>`; the builtin packs scale their paddings with it (`calc(12px * var(--uiforge-density, 1))`) — custom components should do the same for density-aware spacing. Validation is structural rather than a fixed enum: `theme.density` must be a key present in `theme.densities`, and every declared scale must be positive.
 
-Generalized discrete modes were proposed upstream and shipped in DSS v0.7.0 ([systemspec-designsystem#9](https://github.com/plexusone/systemspec-designsystem/issues/9)); `theme.FromDesignSystemWithModes` consumes DSS's `Modes` declaration and `ColorToken.EffectiveModes()` directly. First-class density is still proposed — see [the proposal](https://github.com/plexusone/uiforge/blob/main/docs/proposals/dss-density-and-modes.md); UIForge's density model remains its own `comfortable`/`compact` scale in the meantime.
+Both generalized modes and open density were proposed upstream ([systemspec-designsystem#9](https://github.com/plexusone/systemspec-designsystem/issues/9)) and shipped in DSS v0.7.0 ([`Foundations.Densities`](https://github.com/plexusone/systemspec-designsystem)); `theme.FromDesignSystemWithModes` consumes DSS's `Modes`/`ColorToken.EffectiveModes()` and `Foundations.Densities` directly — UIForge no longer maintains its own closed `comfortable`/`compact` enum. Scope is limited to the scale factor; DSS's per-token `spacingOverrides` aren't consumed yet, since UIForge has no spacing-token contract for components to bind against (see the [proposal](https://github.com/plexusone/uiforge/blob/main/docs/proposals/dss-density-and-modes.md) for status).
 
 ## White-labeling
 
