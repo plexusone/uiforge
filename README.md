@@ -64,7 +64,7 @@ PageSpec JSON ──► Schema validation ──► Registry validation ──�
 | `pkg/interaction` (Go) | Event → action engine (drill-down, cross-filter) |
 | `pkg/diff` (Go) | PageSpec tree diffing |
 | `schema` (Go) | JSON Schemas generated from the Go types, embedded for runtime validation |
-| `theme` (Go) | Adapts [design-system-spec](https://github.com/plexusone/design-system-spec) documents into UIForge themes — semantic token bindings, scoped stylesheets, white-label prefix mapping |
+| `theme` (Go) | Adapts [design-system-spec](https://github.com/plexusone/systemspec-designsystem) documents into UIForge themes — semantic token bindings, scoped stylesheets, white-label prefix mapping |
 | [`spec`](spec) | `@plexusone/uiforge-spec` — UISpec TypeScript types + framework-free runtime engines shared by all renderers |
 | [`renderers/react`](renderers/react) | `@plexusone/uiforge-renderer` — renders PageSpec as a React component tree |
 | [`renderers/lit`](renderers/lit) | `@plexusone/uiforge-renderer-lit` — renders PageSpec as standard web components (`<uiforge-page>`) |

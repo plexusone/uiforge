@@ -4,7 +4,7 @@ UIForge components never hard-code brand decisions. They consume a fixed set of 
 
 ## The semantic token contract
 
-Component styles read `--uiforge-<semantic>` variables named after the [design-system-spec](https://github.com/plexusone/design-system-spec) (DSS) semantic vocabulary — `primary`, `secondary`, `accent`, `danger`, `warning`, `success`, `info`, `neutral`, `surface`, `background`, `text`, `text-muted`, `text-inverse`, `border`, `focus`, `disabled`, `shadow` — plus the category keys `font-family` and `radius`. Every component declares a sensible fallback, so unthemed pages still render well.
+Component styles read `--uiforge-<semantic>` variables named after the [design-system-spec](https://github.com/plexusone/systemspec-designsystem) (DSS) semantic vocabulary — `primary`, `secondary`, `accent`, `danger`, `warning`, `success`, `info`, `neutral`, `surface`, `background`, `text`, `text-muted`, `text-inverse`, `border`, `focus`, `disabled`, `shadow` — plus the category keys `font-family` and `radius`. Every component declares a sensible fallback, so unthemed pages still render well.
 
 The internal `--uiforge-*` prefix is a **fixed machine contract** (like Lightning's `--slds-*` or Polaris's `--p-*`). It is never renamed; brands are expressed as values.
 

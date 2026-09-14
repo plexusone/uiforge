@@ -1,8 +1,8 @@
 # Proposal: First-Class Density and Discrete Modes in design-system-spec
 
 **From:** UIForge (github.com/plexusone/uiforge)
-**To:** design-system-spec (github.com/plexusone/design-system-spec)
-**Status:** Proposed
+**To:** systemspec-designsystem (github.com/plexusone/systemspec-designsystem, formerly design-system-spec)
+**Status:** Filed as [systemspec-designsystem#9](https://github.com/plexusone/systemspec-designsystem/issues/9)
 
 ## Motivation
 

@@ -27,7 +27,7 @@ Because the artifact is declarative JSON rather than framework code, a UIForge p
 | **Runtime engines** | `${...}` expressions, page state, event→action interactions, PageSpec diffing — shared by all renderers |
 | **Two renderers** | [`@plexusone/uiforge-renderer`](https://github.com/plexusone/uiforge/tree/main/renderers/react) (React) and [`@plexusone/uiforge-renderer-lit`](https://github.com/plexusone/uiforge/tree/main/renderers/lit) (`<uiforge-page>`), emitting an identical `data-uiforge-*` DOM contract |
 | **Data runtime** | Pluggable async connectors with loading/error states, caching, and declarative refresh |
-| **Design-system governance** | Semantic token contract integrated with [design-system-spec](https://github.com/plexusone/design-system-spec), including white-label theming |
+| **Design-system governance** | Semantic token contract integrated with [design-system-spec](https://github.com/plexusone/systemspec-designsystem), including white-label theming |
 
 ## Where to start
 
