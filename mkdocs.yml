@@ -66,6 +66,8 @@ nav:
       - TRD: specs/TRD.md
       - Plan: specs/PLAN.md
       - Roadmap: specs/ROADMAP.md
+      - 'Design: Extension Host': specs/extension-host.md
+      - 'Proposal: DSS Density & Modes': proposals/dss-density-and-modes.md
   - API Reference: https://pkg.go.dev/github.com/plexusone/uiforge
   - Releases:
       - Changelog: changelog.md

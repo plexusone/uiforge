@@ -82,7 +82,7 @@ RMI IDs use the repo slug where the work lands.
 | RMI-UIFORGE-121 | Lit data-source connector runtime with async loading and error states | uiforge | capability | yes |
 | RMI-UIFORGE-122 | Third-party component authoring guide | uiforge | docs | yes |
 | RMI-UIFORGE-123 | Runtime capability enforcement for registered components | uiforge | capability | no |
-| RMI-UIFORGE-124 | Sandboxed extension host for untrusted components | uiforge | capability | no |
+| RMI-UIFORGE-124 | Sandboxed extension host for untrusted components ([design](extension-host.md)) | uiforge | capability | no |
 | RMI-UIFORGE-125 | Density and discrete mode-switching model (with upstream DSS proposal) | uiforge | capability | no |
 
 ### Dependencies
