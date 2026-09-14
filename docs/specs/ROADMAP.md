@@ -84,6 +84,7 @@ RMI IDs use the repo slug where the work lands.
 | RMI-UIFORGE-123 | Runtime capability enforcement for registered components | uiforge | capability | no |
 | RMI-UIFORGE-124 | Sandboxed extension host for untrusted components ([design](extension-host.md)) | uiforge | capability | no |
 | RMI-UIFORGE-125 | Density and discrete mode-switching model (with upstream DSS proposal) | uiforge | capability | no |
+| RMI-UIFORGE-126 | Migrate to the systemspec-designsystem module path (DSS v0.6.0) | uiforge | migration | no |
 
 ### Dependencies
 

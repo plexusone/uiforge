@@ -117,7 +117,7 @@ Sandboxed execution for untrusted components remains roadmapped (RMI-UIFORGE-124
 
 ## Design System Integration
 
-UIForge does not define its own design-token model; it consumes **design-system-spec (DSS)** documents (repo renamed to [systemspec-designsystem](https://github.com/plexusone/systemspec-designsystem); the Go module path `github.com/plexusone/design-system-spec` is unchanged — module paths are fixed by published tags). The integration contract:
+UIForge does not define its own design-token model; it consumes **SystemSpec: Design System (DSS)** documents ([systemspec-designsystem](https://github.com/plexusone/systemspec-designsystem), formerly design-system-spec; UIForge imports `github.com/plexusone/systemspec-designsystem/sdk/go` as of v0.6.0). The integration contract:
 
 - **Semantic token vocabulary.** Components consume a fixed set of CSS custom properties named `--uiforge-<semantic>` after DSS's `ValidSemantics` vocabulary (primary, secondary, accent, danger, warning, success, info, neutral, surface, background, text, text-muted, text-inverse, border, focus, disabled, shadow), plus category keys `font-family` and `radius`. Every component style declares a hard-coded fallback, so unthemed pages render sensibly.
 - **`theme` package.** `theme.FromDesignSystem(ds, opts)` maps a DSS document's foundations onto that vocabulary (colors by their declared `semantic`, first font family, `md` radius) and emits either a scoped stylesheet (`Theme.CSS(selector)`) or a `uispec.ThemeRef` for embedding in a PageSpec.

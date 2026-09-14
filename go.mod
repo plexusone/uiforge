@@ -4,7 +4,7 @@ go 1.26.6
 
 require (
 	github.com/invopop/jsonschema v0.14.0
-	github.com/plexusone/design-system-spec v0.5.0
+	github.com/plexusone/systemspec-designsystem v0.6.0
 )
 
 require (

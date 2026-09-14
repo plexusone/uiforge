@@ -16,7 +16,7 @@ import (
 	"sort"
 	"strings"
 
-	dss "github.com/plexusone/design-system-spec/sdk/go"
+	dss "github.com/plexusone/systemspec-designsystem/sdk/go"
 
 	"github.com/plexusone/uiforge/uispec"
 )
