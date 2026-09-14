@@ -2,13 +2,15 @@
 
 **From:** UIForge (github.com/plexusone/uiforge)
 **To:** systemspec-designsystem (github.com/plexusone/systemspec-designsystem, formerly design-system-spec)
-**Status:** Filed as [systemspec-designsystem#9](https://github.com/plexusone/systemspec-designsystem/issues/9)
+**Status:** Filed and closed as [systemspec-designsystem#9](https://github.com/plexusone/systemspec-designsystem/issues/9) — modes shipped in DSS v0.7.0; density is not yet addressed upstream (see §2)
 
 ## Motivation
 
 UIForge consumes DSS documents as its design-token source ([theming docs](https://plexusone.github.io/uiforge/concepts/theming/)). Two concepts UIForge needed have no first-class DSS representation, so UIForge modeled them downstream (RMI-UIFORGE-125). Upstreaming them would let any DSS consumer share the semantics.
 
-## 1. Discrete modes
+## 1. Discrete modes — shipped in DSS v0.7.0
+
+DSS v0.7.0 shipped this half of the proposal: a document-level `modes` declaration, `ColorToken.modes` (generalized per-token values, with `lightModeValue`/`darkModeValue` folded in as sugar via `EffectiveModes()`), a `mode-completeness` spec lint rule, and mode-aware CSS/bindings/W3C generation. UIForge's `theme` package (RMI-UIFORGE-127) now consumes these directly and no longer derives overlays by diffing a fixed light/dark pair. Density (below) is not yet addressed upstream.
 
 **Today:** DSS models light/dark per token (`ColorToken.lightModeValue` / `darkModeValue`), and `ThemeBindings.themeMode` selects one at binding time. There is no way to enumerate a document's modes, no mode-completeness validation, and no room for modes beyond light/dark (high-contrast, brand sub-themes).
 

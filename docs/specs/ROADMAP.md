@@ -85,11 +85,13 @@ RMI IDs use the repo slug where the work lands.
 | RMI-UIFORGE-124 | Sandboxed extension host for untrusted components ([design](extension-host.md)) | uiforge | capability | no |
 | RMI-UIFORGE-125 | Density and discrete mode-switching model (with upstream DSS proposal) | uiforge | capability | no |
 | RMI-UIFORGE-126 | Migrate to the systemspec-designsystem module path (DSS v0.6.0) | uiforge | migration | no |
+| RMI-UIFORGE-127 | Migrate theme adapter to DSS v0.7.0 first-class modes | uiforge | refactor | no |
 
 ### Dependencies
 
 - RMI-UIFORGE-123 → RMI-UIFORGE-122
 - RMI-UIFORGE-124 → RMI-UIFORGE-123
+- RMI-UIFORGE-127 → RMI-UIFORGE-125
 
 ---
 

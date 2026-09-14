@@ -46,11 +46,11 @@ ref := t.ThemeRef("acme", theme.ModeDark) // or embed directly in a PageSpec
 }
 ```
 
-`variant` names the default mode; hosts switch at runtime via the `mode` prop (`PageRenderer`) or property (`<uiforge-page>`) — the active overlay applies over `tokens` and the page root carries `data-uiforge-mode`. `theme.FromDesignSystemWithModes` (Go) derives the overlays from a DSS document's per-token light/dark values, and `CSSWithModes` emits base + `[data-uiforge-mode="…"]` override blocks for stylesheet-based theming.
+`variant` names the default mode; hosts switch at runtime via the `mode` prop (`PageRenderer`) or property (`<uiforge-page>`) — the active overlay applies over `tokens` and the page root carries `data-uiforge-mode`. `theme.FromDesignSystemWithModes` (Go) derives overlays for every mode the DSS document declares (or light/dark, for documents that only use the `lightModeValue`/`darkModeValue` sugar fields), and `CSSWithModes` emits base + `[data-uiforge-mode="…"]` override blocks for stylesheet-based theming.
 
 `density: "compact"` stamps `data-uiforge-density` and publishes `--uiforge-density: 0.75`; the builtin packs scale their paddings with it (`calc(12px * var(--uiforge-density, 1))`) — custom components should do the same for density-aware spacing. Validation enforces that mode overlay keys stay on the token contract and that density is `comfortable`/`compact`.
 
-First-class density and generalized modes are proposed upstream to design-system-spec — see [the proposal](https://github.com/plexusone/uiforge/blob/main/docs/proposals/dss-density-and-modes.md).
+Generalized discrete modes were proposed upstream and shipped in DSS v0.7.0 ([systemspec-designsystem#9](https://github.com/plexusone/systemspec-designsystem/issues/9)); `theme.FromDesignSystemWithModes` consumes DSS's `Modes` declaration and `ColorToken.EffectiveModes()` directly. First-class density is still proposed — see [the proposal](https://github.com/plexusone/uiforge/blob/main/docs/proposals/dss-density-and-modes.md); UIForge's density model remains its own `comfortable`/`compact` scale in the meantime.
 
 ## White-labeling
 

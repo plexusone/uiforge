@@ -211,3 +211,71 @@ func TestFromDesignSystemWithModes(t *testing.T) {
 		t.Errorf("CSSWithModes output wrong:\n%s", css)
 	}
 }
+
+// TestColorValueArbitraryMode guards that colorValue resolves modes beyond
+// light/dark through DSS v0.7.0's generalized ColorToken.Modes map, not just
+// the lightModeValue/darkModeValue sugar fields.
+func TestColorValueArbitraryMode(t *testing.T) {
+	ds := &dss.DesignSystem{
+		Meta: dss.Meta{Name: "Example", Version: "0.1.0"},
+		Foundations: dss.Foundations{
+			Colors: []dss.ColorToken{
+				{
+					ID: "teal", Value: "#0f766e", Semantic: "primary",
+					Modes: map[string]string{"high-contrast": "#000000"},
+				},
+			},
+		},
+	}
+	th, err := FromDesignSystem(ds, Options{Mode: Mode("high-contrast")})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if th.Tokens["primary"] != "#000000" {
+		t.Errorf("primary = %q, want high-contrast mode value", th.Tokens["primary"])
+	}
+
+	// A mode the token has no value for falls back to the base value.
+	th, err = FromDesignSystem(ds, Options{Mode: ModeDark})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if th.Tokens["primary"] != "#0f766e" {
+		t.Errorf("primary = %q, want base value fallback", th.Tokens["primary"])
+	}
+}
+
+// TestFromDesignSystemWithModesGeneralized guards the actual new capability:
+// a DSS document declaring more than two modes produces an overlay per
+// declared mode, not just light/dark.
+func TestFromDesignSystemWithModesGeneralized(t *testing.T) {
+	ds := &dss.DesignSystem{
+		Meta:  dss.Meta{Name: "Example", Version: "0.1.0"},
+		Modes: []string{"light", "dark", "high-contrast"},
+		Foundations: dss.Foundations{
+			Colors: []dss.ColorToken{
+				{
+					ID: "teal", Value: "#0f766e", Semantic: "primary",
+					Modes: map[string]string{
+						"light":         "#0d9488",
+						"dark":          "#134e4a",
+						"high-contrast": "#000000",
+					},
+				},
+			},
+		},
+	}
+	_, ref, err := FromDesignSystemWithModes(ds, Options{Mode: ModeDark})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := map[string]string{"light": "#0d9488", "dark": "#134e4a", "high-contrast": "#000000"}
+	if len(ref.Modes) != len(want) {
+		t.Fatalf("ref.Modes = %v, want %d overlays", ref.Modes, len(want))
+	}
+	for mode, val := range want {
+		if ref.Modes[mode]["primary"] != val {
+			t.Errorf("ref.Modes[%q][primary] = %q, want %q", mode, ref.Modes[mode]["primary"], val)
+		}
+	}
+}

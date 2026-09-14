@@ -7,6 +7,14 @@
   "maintainers": [
     "johncwang@gmail.com"
   ],
+  "unreleased": {
+    "changed": [
+      {
+        "description": "theme package migrated to design-system-spec v0.7.0's first-class modes: colorValue and FromDesignSystemWithModes now read ColorToken.EffectiveModes()/DesignSystem.Modes directly instead of deriving light/dark overlays by diffing three generated theme variants; overlays are generated for every mode a document declares, not just light/dark",
+        "rmis": ["RMI-UIFORGE-127"]
+      }
+    ]
+  },
   "releases": [
     {
       "version": "v0.1.0",

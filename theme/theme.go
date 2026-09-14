@@ -21,15 +21,16 @@ import (
 	"github.com/plexusone/uiforge/uispec"
 )
 
-// Mode selects which per-token color value to use.
+// Mode selects which per-token color value to use — "light", "dark", or any
+// other mode a DSS document declares (e.g. "high-contrast").
 type Mode string
 
 const (
 	// ModeDefault uses each token's base value.
 	ModeDefault Mode = ""
-	// ModeLight prefers lightModeValue when a token defines one.
+	// ModeLight prefers the token's light-mode value when one is defined.
 	ModeLight Mode = "light"
-	// ModeDark prefers darkModeValue when a token defines one.
+	// ModeDark prefers the token's dark-mode value when one is defined.
 	ModeDark Mode = "dark"
 )
 
@@ -44,7 +45,9 @@ type Options struct {
 	// --{prefix}-font-{id}, radii as --{prefix}-radius-{id}.
 	SourcePrefix string
 
-	// Mode selects light or dark token values where a token defines them.
+	// Mode selects which mode's per-token value to use — any mode the DSS
+	// document declares. Tokens without a value for the selected mode fall
+	// back to their base value.
 	Mode Mode
 }
 
@@ -134,17 +137,19 @@ func (t *Theme) CSS(selector string) string {
 }
 
 // FromDesignSystemWithModes builds a theme whose base tokens use each
-// token's default value and whose Modes overlays carry the light/dark
-// values that differ from the base — enabling runtime mode switching
-// without regenerating the theme.
+// token's default value and whose Modes overlays carry the per-mode values
+// that differ from the base — enabling runtime mode switching without
+// regenerating the theme. Overlays are generated for every mode the DSS
+// document declares (declaredModes), so a document with a "high-contrast"
+// mode produces a "high-contrast" overlay alongside light/dark.
 func FromDesignSystemWithModes(ds *dss.DesignSystem, opts Options) (*Theme, *uispec.ThemeRef, error) {
 	base, err := FromDesignSystem(ds, Options{SourcePrefix: opts.SourcePrefix})
 	if err != nil {
 		return nil, nil, err
 	}
 	modes := map[string]map[string]string{}
-	for _, mode := range []Mode{ModeLight, ModeDark} {
-		variant, err := FromDesignSystem(ds, Options{SourcePrefix: opts.SourcePrefix, Mode: mode})
+	for _, mode := range declaredModes(ds) {
+		variant, err := FromDesignSystem(ds, Options{SourcePrefix: opts.SourcePrefix, Mode: Mode(mode)})
 		if err != nil {
 			return nil, nil, err
 		}
@@ -155,12 +160,38 @@ func FromDesignSystemWithModes(ds *dss.DesignSystem, opts Options) (*Theme, *uis
 			}
 		}
 		if len(overlay) > 0 {
-			modes[string(mode)] = overlay
+			modes[mode] = overlay
 		}
 	}
 	ref := base.ThemeRef("", opts.Mode)
 	ref.Modes = modes
 	return base, ref, nil
+}
+
+// declaredModes returns the modes theme overlays should be generated for:
+// the union of the DSS document's declared Modes and any mode key present on
+// a color token, mirroring DSS's own CSS-generation convention. A document
+// that only uses the legacy lightModeValue/darkModeValue sugar fields (no
+// Modes declaration) still yields "light"/"dark" via EffectiveModes().
+func declaredModes(ds *dss.DesignSystem) []string {
+	seen := map[string]bool{}
+	var modes []string
+	add := func(m string) {
+		if m != "" && !seen[m] {
+			seen[m] = true
+			modes = append(modes, m)
+		}
+	}
+	for _, m := range ds.Modes {
+		add(m)
+	}
+	for _, c := range ds.Foundations.Colors {
+		for m := range c.EffectiveModes() {
+			add(m)
+		}
+	}
+	sort.Strings(modes)
+	return modes
 }
 
 // CSSWithModes renders the base tokens under the selector plus one override
@@ -218,15 +249,8 @@ func ValidateTokens(tokens map[string]string) []string {
 }
 
 func colorValue(c dss.ColorToken, mode Mode) string {
-	switch mode {
-	case ModeLight:
-		if c.LightModeValue != "" {
-			return c.LightModeValue
-		}
-	case ModeDark:
-		if c.DarkModeValue != "" {
-			return c.DarkModeValue
-		}
+	if v, ok := c.EffectiveModes()[string(mode)]; ok && v != "" {
+		return v
 	}
 	return c.Value
 }
