@@ -255,8 +255,8 @@ function buildThemeStyle(theme?: ThemeRef, mode?: string): React.CSSProperties {
   for (const [key, value] of Object.entries(effective)) {
     style[`--uiforge-${key}`] = value
   }
-  if (theme.density === 'compact') {
-    style['--uiforge-density'] = '0.75'
+  if (theme.density && theme.densities?.[theme.density] !== undefined) {
+    style['--uiforge-density'] = String(theme.densities[theme.density])
   }
   return style
 }

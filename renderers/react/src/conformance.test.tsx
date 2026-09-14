@@ -66,5 +66,14 @@ describe('golden fixture conformance', () => {
         expect(rootEl.style.getPropertyValue(`--uiforge-${key}`)).toBe(spec.theme.tokens[key])
       }
     }
+
+    if (spec.theme?.density) {
+      const rootEl = root as HTMLElement
+      expect(rootEl.getAttribute('data-uiforge-density')).toBe(spec.theme.density)
+      const scale = spec.theme.densities?.[spec.theme.density]
+      if (scale !== undefined) {
+        expect(rootEl.style.getPropertyValue('--uiforge-density')).toBe(String(scale))
+      }
+    }
   })
 })

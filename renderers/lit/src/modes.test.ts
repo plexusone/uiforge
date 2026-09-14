@@ -15,6 +15,7 @@ function themedSpec(): PageSpec {
       id: 'brand',
       variant: 'dark',
       density: 'compact',
+      densities: { comfortable: 1, compact: 0.75 },
       tokens: { primary: '#0f766e', surface: '#111111' },
       modes: {
         light: { primary: '#0d9488', surface: '#ffffff' },
@@ -71,6 +72,24 @@ describe('theme modes and density', () => {
     const page = root(el)
     expect(page.getAttribute('data-uiforge-density')).toBe('compact')
     expect(page.style.getPropertyValue('--uiforge-density')).toBe('0.75')
+  })
+
+  it('resolves an arbitrary, document-specific density name', async () => {
+    const spec = themedSpec()
+    spec.theme = { ...spec.theme, density: 'spacious', densities: { spacious: 1.25 } }
+    const el = await renderPage(spec)
+    const page = root(el)
+    expect(page.getAttribute('data-uiforge-density')).toBe('spacious')
+    expect(page.style.getPropertyValue('--uiforge-density')).toBe('1.25')
+  })
+
+  it('leaves the density scale unset when density has no matching densities entry', async () => {
+    const spec = themedSpec()
+    spec.theme = { ...spec.theme, density: 'roomy', densities: { compact: 0.75 } }
+    const el = await renderPage(spec)
+    const page = root(el)
+    expect(page.getAttribute('data-uiforge-density')).toBe('roomy')
+    expect(page.style.getPropertyValue('--uiforge-density')).toBe('')
   })
 
   it('omits mode and density markers when the theme does not use them', async () => {

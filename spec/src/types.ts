@@ -132,7 +132,13 @@ export interface ThemeRef {
   // Per-mode token overlays (e.g. light, dark) applied over tokens at render
   // time; variant names the default mode and renderers can switch at runtime.
   modes?: Record<string, Record<string, string>>
-  // Spacing density: 'comfortable' (default) or 'compact'. Renderers surface
-  // it as data-uiforge-density and a --uiforge-density scale factor.
-  density?: 'comfortable' | 'compact'
+  // Selected density ID — must be a key in `densities` when set (e.g.
+  // 'comfortable', 'compact', or a document-specific name). Renderers
+  // surface it as data-uiforge-density.
+  density?: string
+  // Every declared density's spacing scale, keyed by ID — resolved from a
+  // design system's foundations. Renderers look up densities[density] for
+  // the --uiforge-density CSS custom property, falling back to 1 when
+  // absent.
+  densities?: Record<string, number>
 }

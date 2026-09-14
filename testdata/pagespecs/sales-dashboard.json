@@ -191,6 +191,11 @@
   "theme": {
     "id": "default",
     "variant": "light",
+    "density": "compact",
+    "densities": {
+      "comfortable": 1,
+      "compact": 0.75
+    },
     "tokens": {
       "primary": "#0ea5e9"
     }
