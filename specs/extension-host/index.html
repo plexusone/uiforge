@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://plexusone.github.io/uiforge/getting-started/">
+        <link rel="canonical" href="https://plexusone.github.io/uiforge/specs/extension-host/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../ROADMAP/">
       
       
-        <link rel="next" href="../concepts/architecture/">
+        <link rel="next" href="../../proposals/dss-density-and-modes/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Getting Started - UIForge</title>
+        <title>Design: Extension Host - UIForge</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,7 +55,7 @@
     
       <link rel="stylesheet" href="https://plexusone.dev/css/plexusone-mkdocs.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#getting-started" class="md-skip">
+        <a href="#extension-host-design-sandboxed-third-party-components" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="UIForge" class="md-header__button md-logo" aria-label="UIForge" data-md-component="logo">
+    <a href="../.." title="UIForge" class="md-header__button md-logo" aria-label="UIForge" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -121,7 +121,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Getting Started
+              Design: Extension Host
             
           </span>
         </div>
@@ -238,7 +238,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="UIForge" class="md-nav__button md-logo" aria-label="UIForge" data-md-component="logo">
+    <a href="../.." title="UIForge" class="md-nav__button md-logo" aria-label="UIForge" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -268,7 +268,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -292,37 +292,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Getting Started
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
         
   
   
@@ -338,92 +311,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#a-minimal-pagespec" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A minimal PageSpec
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#validate-it-go" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Validate it (Go)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#render-it-web-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Render it (web components)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#render-it-react" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Render it (React)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Install
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-the-demo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run the demo
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -489,7 +376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/architecture/" class="md-nav__link">
+      <a href="../../concepts/architecture/" class="md-nav__link">
         
   
   
@@ -517,7 +404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/pagespec/" class="md-nav__link">
+      <a href="../../concepts/pagespec/" class="md-nav__link">
         
   
   
@@ -545,7 +432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/data-binding/" class="md-nav__link">
+      <a href="../../concepts/data-binding/" class="md-nav__link">
         
   
   
@@ -573,7 +460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/theming/" class="md-nav__link">
+      <a href="../../concepts/theming/" class="md-nav__link">
         
   
   
@@ -601,7 +488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/renderers/" class="md-nav__link">
+      <a href="../../concepts/renderers/" class="md-nav__link">
         
   
   
@@ -690,7 +577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guides/authoring-pages/" class="md-nav__link">
+      <a href="../../guides/authoring-pages/" class="md-nav__link">
         
   
   
@@ -718,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guides/authoring-components/" class="md-nav__link">
+      <a href="../../guides/authoring-components/" class="md-nav__link">
         
   
   
@@ -807,7 +694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../components/" class="md-nav__link">
+      <a href="../../components/" class="md-nav__link">
         
   
   
@@ -835,7 +722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../components/core/" class="md-nav__link">
+      <a href="../../components/core/" class="md-nav__link">
         
   
   
@@ -863,7 +750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../components/analytics/" class="md-nav__link">
+      <a href="../../components/analytics/" class="md-nav__link">
         
   
   
@@ -891,7 +778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../components/application/" class="md-nav__link">
+      <a href="../../components/application/" class="md-nav__link">
         
   
   
@@ -919,7 +806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../components/assistant/" class="md-nav__link">
+      <a href="../../components/assistant/" class="md-nav__link">
         
   
   
@@ -951,8 +838,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -963,13 +852,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -990,7 +877,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1008,7 +895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/PRD/" class="md-nav__link">
+      <a href="../PRD/" class="md-nav__link">
         
   
   
@@ -1036,7 +923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/TRD/" class="md-nav__link">
+      <a href="../TRD/" class="md-nav__link">
         
   
   
@@ -1064,7 +951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/PLAN/" class="md-nav__link">
+      <a href="../PLAN/" class="md-nav__link">
         
   
   
@@ -1092,7 +979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/ROADMAP/" class="md-nav__link">
+      <a href="../ROADMAP/" class="md-nav__link">
         
   
   
@@ -1117,10 +1004,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../specs/extension-host/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design: Extension Host
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1136,6 +1050,164 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#threat-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threat model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-in-process-just-call-the-function-cannot-be-secured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why in-process ("just call the function") cannot be secured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-trust-matrix-review-vs-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The trust matrix: review vs. structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isolation-tiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Isolation tiers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Isolation tiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-1-declarative-worker-extensions-primary-build-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 1 — Declarative worker extensions (primary; build first)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-2-iframe-extensions-custom-pixels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 2 — Iframe extensions (custom pixels)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-3-managed-same-realm-deferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 3 — Managed same-realm (deferred)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#origin-requirements-the-part-shortcuts-silently-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Origin requirements (the part shortcuts silently break)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manifest-and-registry-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manifest and registry changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bridge-protocol-sketch-to-be-specified-fully-before-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bridge protocol (sketch — to be specified fully before implementation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salesforce-comparison-context-for-these-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Salesforce comparison (context for these choices)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequencing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1148,7 +1220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proposals/dss-density-and-modes/" class="md-nav__link">
+      <a href="../../proposals/dss-density-and-modes/" class="md-nav__link">
         
   
   
@@ -1264,7 +1336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../changelog/" class="md-nav__link">
+      <a href="../../changelog/" class="md-nav__link">
         
   
   
@@ -1292,7 +1364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../releases/v0.8.0/" class="md-nav__link">
+      <a href="../../releases/v0.8.0/" class="md-nav__link">
         
   
   
@@ -1347,10 +1419,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#a-minimal-pagespec" class="md-nav__link">
+  <a href="#threat-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A minimal PageSpec
+        Threat model
       
     </span>
   </a>
@@ -1358,10 +1430,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#validate-it-go" class="md-nav__link">
+  <a href="#why-in-process-just-call-the-function-cannot-be-secured" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Validate it (Go)
+        Why in-process ("just call the function") cannot be secured
       
     </span>
   </a>
@@ -1369,10 +1441,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#render-it-web-components" class="md-nav__link">
+  <a href="#the-trust-matrix-review-vs-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Render it (web components)
+        The trust matrix: review vs. structure
       
     </span>
   </a>
@@ -1380,10 +1452,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#render-it-react" class="md-nav__link">
+  <a href="#isolation-tiers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Render it (React)
+        Isolation tiers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Isolation tiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-1-declarative-worker-extensions-primary-build-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 1 — Declarative worker extensions (primary; build first)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-2-iframe-extensions-custom-pixels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 2 — Iframe extensions (custom pixels)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-3-managed-same-realm-deferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tier 3 — Managed same-realm (deferred)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#origin-requirements-the-part-shortcuts-silently-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Origin requirements (the part shortcuts silently break)
       
     </span>
   </a>
@@ -1391,10 +1513,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#manifest-and-registry-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install
+        Manifest and registry changes
       
     </span>
   </a>
@@ -1402,10 +1524,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-the-demo" class="md-nav__link">
+  <a href="#bridge-protocol-sketch-to-be-specified-fully-before-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Run the demo
+        Bridge protocol (sketch — to be specified fully before implementation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salesforce-comparison-context-for-these-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Salesforce comparison (context for these choices)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequencing
       
     </span>
   </a>
@@ -1432,84 +1576,132 @@
   
 
 
-<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
-<h2 id="a-minimal-pagespec">A minimal PageSpec<a class="headerlink" href="#a-minimal-pagespec" title="Permanent link">&para;</a></h2>
-<p>Every UIForge page is a JSON document:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ui.plexusone.dev/v1&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Page&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello&quot;</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">&quot;profile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dashboard&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">&quot;layout&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;responsive-grid&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;gap&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;16px&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greeting&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;core.text&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">      </span><span class="nt">&quot;position&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;col&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;colSpan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello, UIForge&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;variant&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;heading&quot;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="p">]</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">}</span>
-</code></pre></div>
-<h2 id="validate-it-go">Validate it (Go)<a class="headerlink" href="#validate-it-go" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="s">&quot;encoding/json&quot;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/uiforge/registry&quot;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/uiforge/uispec&quot;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">)</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kd">var</span><span class="w"> </span><span class="nx">page</span><span class="w"> </span><span class="nx">uispec</span><span class="p">.</span><span class="nx">PageSpec</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">pageJSON</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">page</span><span class="p">)</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">registry</span><span class="p">.</span><span class="nx">NewWithBuiltins</span><span class="p">()</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">ValidatePage</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">page</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="c1">// every problem is reported: unknown component types, missing required</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="c1">// data inputs, property schema violations, profile constraint breaches</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">}</span>
-</code></pre></div>
-<h2 id="render-it-web-components">Render it (web components)<a class="headerlink" href="#render-it-web-components" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nx">registerCoreComponents</span><span class="p">,</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nx">registerAnalyticsComponents</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@plexusone/uiforge-renderer-lit&#39;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nx">registerCoreComponents</span><span class="p">()</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nx">registerAnalyticsComponents</span><span class="p">()</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="kd">const</span><span class="w"> </span><span class="nx">el</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;uiforge-page&#39;</span><span class="p">)</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nx">el</span><span class="p">.</span><span class="nx">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pageSpec</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nx">el</span><span class="p">.</span><span class="nx">dataSources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">myConnector</span><span class="p">]</span><span class="w"> </span><span class="c1">// optional — see Data Binding</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="render-it-react">Render it (React)<a class="headerlink" href="#render-it-react" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nx">PageRenderer</span><span class="p">,</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nx">registerCoreComponents</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nx">registerAnalyticsComponents</span><span class="p">,</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@plexusone/uiforge-renderer&#39;</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nx">registerCoreComponents</span><span class="p">()</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nx">registerAnalyticsComponents</span><span class="p">()</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">App</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">PageRenderer</span><span class="w"> </span><span class="na">page</span><span class="o">=</span><span class="p">{</span><span class="nx">pageSpec</span><span class="p">}</span><span class="w"> </span><span class="na">dataSources</span><span class="o">=</span><span class="p">{[</span><span class="nx">myConnector</span><span class="p">]}</span><span class="w"> </span><span class="p">/&gt;</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">}</span>
-</code></pre></div>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pnpm<span class="w"> </span>add<span class="w"> </span>@plexusone/uiforge-renderer-lit<span class="w">   </span><span class="c1"># web components</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>pnpm<span class="w"> </span>add<span class="w"> </span>@plexusone/uiforge-renderer<span class="w">       </span><span class="c1"># React</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>pnpm<span class="w"> </span>add<span class="w"> </span>@plexusone/uiforge-spec<span class="w">           </span><span class="c1"># types + engines only</span>
-</code></pre></div>
-<p>(or <code>npm install</code> — the packages are plain ESM with no install scripts.)</p>
-<h2 id="run-the-demo">Run the demo<a class="headerlink" href="#run-the-demo" title="Permanent link">&para;</a></h2>
-<p>A complete sales dashboard — defined as one PageSpec, rendered by <code>&lt;uiforge-page&gt;</code> with a live async data source — ships in the repo with no bundler required:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>spec<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">cd</span><span class="w"> </span>renderers/lit<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>../..
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w">   </span><span class="c1"># from the repository root</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># open http://localhost:8000/examples/demo/</span>
-</code></pre></div>
-<p>Change the region filter to watch the interaction engine update page state and re-render, and note the orders table's loading state resolving through a delayed connector.</p>
+<h1 id="extension-host-design-sandboxed-third-party-components">Extension Host Design — Sandboxed Third-Party Components<a class="headerlink" href="#extension-host-design-sandboxed-third-party-components" title="Permanent link">&para;</a></h1>
+<p><strong>RMI:</strong> RMI-UIFORGE-124
+<strong>Status:</strong> Design (pre-implementation)
+<strong>Date:</strong> 2026-09-14</p>
+<p>This document captures the design for running components UIForge does not trust. Nothing here is implemented yet; the <a href="../../guides/authoring-components/">component authoring guide</a> describes today's trusted-native model, and the capability machinery from RMI-UIFORGE-123 (declared ∩ profile-allowed ∩ granted) is the foundation this builds on.</p>
+<h2 id="threat-model">Threat model<a class="headerlink" href="#threat-model" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Untrusted:</strong> third-party component code — marketplace packages, vendor extensions — running inside a host application's pages.</li>
+<li><strong>Protected:</strong> the host application's session, credentials, and internals ("platform chrome"); connector credentials and the data broker; page data beyond what the viewing user is authorized to see; other components' DOM and state; other tenants.</li>
+<li><strong>Out of scope / non-goals:</strong> a malicious or compromised host application; perfect side-channel (Spectre-class) resistance on deployments that decline COOP/COEP; sandboxing the host itself.</li>
+</ul>
+<h2 id="why-in-process-just-call-the-function-cannot-be-secured">Why in-process ("just call the function") cannot be secured<a class="headerlink" href="#why-in-process-just-call-the-function-cannot-be-secured" title="Permanent link">&para;</a></h2>
+<p>A shared JavaScript realm is not a security boundary:</p>
+<ul>
+<li>Any handed object is a capability leak — from a rendered node, <code>ownerDocument</code> reaches the whole page (shadow DOM is encapsulation, not security); from nearly any value, <code>Function</code> reaches full evaluation; prototype pollution poisons host objects.</li>
+<li>Ambient authority (<code>fetch</code>, storage, cookies) is unrevokable in-realm. The runtime capability gates from RMI-123 are honest-component conventions, not containment — hostile code simply bypasses the helpers.</li>
+<li>Same-realm confinement systems (membranes, SES/Hardened JS, ShadowRealm) are real but are a <em>product to maintain</em>, not a library to adopt: SES <code>lockdown()</code> constrains the host's own code; DOM can't be safely granted into a realm; membranes have a long bypass history. See the Salesforce comparison below.</li>
+</ul>
+<h2 id="the-trust-matrix-review-vs-structure">The trust matrix: review vs. structure<a class="headerlink" href="#the-trust-matrix-review-vs-structure" title="Permanent link">&para;</a></h2>
+<p>The deciding variable is <strong>whether the code's author and the data's owner are the same principal</strong>. Security review (à la AppExchange) exists to bridge that gap; when there is no gap, structure replaces review.</p>
+<table>
+<thead>
+<tr>
+<th>Code source</th>
+<th>Author = data owner?</th>
+<th>Review needed?</th>
+<th>Isolation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform / host team</td>
+<td>yes</td>
+<td>no</td>
+<td>none — trusted native (today's model)</td>
+</tr>
+<tr>
+<td><strong>Tenant's own admins</strong></td>
+<td>yes (self-harm only)</td>
+<td><strong>no</strong> — replaced by structure: admin-gated authoring + viewer-scoped data broker</td>
+<td>light — protect platform chrome; trusted-native or a future managed tier</td>
+</tr>
+<tr>
+<td>Marketplace / cross-tenant</td>
+<td><strong>no</strong></td>
+<td>yes, <strong>or</strong> full sandbox as substitute</td>
+<td>full — worker or iframe tier</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The tenant tier's structural substitutes for review:</strong></p>
+<ol>
+<li><em>Authoring is privilege-gated</em>: only principals with broad tenant data access (admins) may register components — closing intra-tenant privilege escalation (low-privilege author, high-privilege viewer).</li>
+<li><em>Execution never exceeds the viewer's authority</em>: extension code holds no credentials; all data flows through the broker executing under the <strong>current viewer's</strong> authorization (the capability grant sourced from the viewer session). Even malicious tenant code reads only what the person viewing the page could read.</li>
+<li>Cross-tenant isolation is carried by server-side tenancy, not the JS sandbox.</li>
+</ol>
+<h2 id="isolation-tiers">Isolation tiers<a class="headerlink" href="#isolation-tiers" title="Permanent link">&para;</a></h2>
+<h3 id="tier-1-declarative-worker-extensions-primary-build-first">Tier 1 — Declarative worker extensions (primary; build first)<a class="headerlink" href="#tier-1-declarative-worker-extensions-primary-build-first" title="Permanent link">&para;</a></h3>
+<p>Untrusted code runs in a <strong>Web Worker with no DOM</strong>; its only output is a <strong>PageSpec fragment</strong> over a versioned postMessage protocol. The trusted renderer renders the fragment with registered components.</p>
+<p>Why this is the strongest <em>and</em> cheapest tier:</p>
+<ul>
+<li>Design-system conformance is enforced <strong>by construction</strong> — the platform renders; the extension only composes.</li>
+<li>The existing machinery does the heavy lifting: fragment validation is <code>ValidatePage</code> + property schemas + the token contract; rendering is the existing renderers.</li>
+<li>Capability enforcement <em>is</em> the message protocol: data requests are brokered through the host's connector registry with capability checks; the worker never holds credentials.</li>
+<li>Network egress is bounded by the page CSP (<code>connect-src</code>) and, in the full-isolation variant, by the extension origin.</li>
+<li>It is also the natural target for AI-generated extensions — "emit a spec" is already the platform's authoring model.</li>
+</ul>
+<h3 id="tier-2-iframe-extensions-custom-pixels">Tier 2 — Iframe extensions (custom pixels)<a class="headerlink" href="#tier-2-iframe-extensions-custom-pixels" title="Permanent link">&para;</a></h3>
+<p>For extensions that genuinely need their own rendering (proprietary chart libraries): a <strong>cross-origin, sandboxed iframe</strong>, integrated through a bridge component (<code>extension.frame</code>) that implements the normal component contract — instance/props/theme tokens in; events, size negotiation out; data only through the broker protocol. Loading/error states map onto the existing <code>data-uiforge-loading</code>/<code>data-uiforge-error</code> vocabulary.</p>
+<h3 id="tier-3-managed-same-realm-deferred">Tier 3 — Managed same-realm (deferred)<a class="headerlink" href="#tier-3-managed-same-realm-deferred" title="Permanent link">&para;</a></h3>
+<p>An LWS-style membrane tier for reviewed, semi-trusted code that must compose seamlessly. Explicitly deferred: it is a permanent security product (continuous distortion maintenance, bypass response) and is only defensible behind a marketplace review process. Revisit if/when a review pipeline exists.</p>
+<h2 id="origin-requirements-the-part-shortcuts-silently-break">Origin requirements (the part shortcuts silently break)<a class="headerlink" href="#origin-requirements-the-part-shortcuts-silently-break" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The host needs no new domain for its own JS.</strong> The requirement is a <strong>second origin for extension content</strong>: static hosting only (extension bundles + a small runner page), no cookies or sessions, immutable content-addressed URLs so manifest integrity hashes are meaningful.</li>
+<li><strong>A subdomain is not sufficient.</strong> <code>ext.example.com</code> is the same <em>site</em> as <code>app.example.com</code>: domain-scoped cookies can leak, and browsers make process-isolation decisions per site — a same-site iframe can share the host's OS process (Spectre exposure). Use a <strong>separate registrable domain</strong> (the <code>*-usercontent.com</code> pattern used by Google, Figma, and Salesforce's content domains).</li>
+<li><strong>The blob-worker trap:</strong> fetching third-party code and running it via <code>new Worker(blobURL)</code> makes the worker <strong>same-origin with the host</strong> — no DOM, but full access to the origin's IndexedDB/Cache and same-origin fetch. Acceptable only for the tenant/managed tiers or hosts that keep nothing sensitive in origin storage. Full isolation spawns the worker <strong>from a hidden runner iframe on the extensions origin</strong>, giving both tiers one shared piece of infrastructure and a throwaway storage/fetch context.</li>
+<li>Development mode: a second localhost port is a different <em>origin</em> (fine for dev) but not a different <em>site</em> — never the production posture.</li>
+<li>Host hardening obligations (documented requirements, not library code): real CSP, <code>permissions-policy</code> on frames, the bridge treated as security-critical reviewed code, no privileged objects through postMessage, COOP/COEP where Spectre matters.</li>
+</ul>
+<h2 id="manifest-and-registry-changes">Manifest and registry changes<a class="headerlink" href="#manifest-and-registry-changes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>ComponentSpec.runtime</code> gains enforced semantics: <code>"native" | "worker" | "iframe"</code> (today the field is informational).</li>
+<li>Non-native runtimes require: entry URL (on the extensions origin), an integrity hash (content-addressed), and a declared network allowlist; <code>Register</code>/<code>LoadManifest</code> validate presence and shape.</li>
+<li>Profile gating extends naturally: e.g. the <code>embedded</code> profile may forbid <code>iframe</code> runtimes outright (<code>ProfileConstraints</code>).</li>
+<li>The capability model is unchanged — non-native runtimes simply make the grant <em>enforceable</em> instead of conventional.</li>
+</ul>
+<h2 id="bridge-protocol-sketch-to-be-specified-fully-before-implementation">Bridge protocol (sketch — to be specified fully before implementation)<a class="headerlink" href="#bridge-protocol-sketch-to-be-specified-fully-before-implementation" title="Permanent link">&para;</a></h2>
+<p>Versioned message envelope; per-instance channel. Inbound to extension: <code>init</code> (instance, resolved props, theme tokens, granted capabilities, mode/density), <code>data-result</code>, <code>update</code>. Outbound: <code>fragment</code> (worker tier — a PageSpec fragment), <code>event</code> (name + payload, checked against manifest events), <code>data-request</code> (input name → brokered through connectors with capability + viewer-authz checks), <code>resize</code> (iframe tier), <code>error</code>. Timeouts and crashes surface as <code>data-uiforge-error</code>.</p>
+<h2 id="salesforce-comparison-context-for-these-choices">Salesforce comparison (context for these choices)<a class="headerlink" href="#salesforce-comparison-context-for-these-choices" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Salesforce</th>
+<th>This design</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LWS per-namespace virtual environments (same-realm membranes) — their strategic direction for seamless composition</td>
+<td>Tier 3, deferred: only viable as a maintained security product behind review</td>
+</tr>
+<tr>
+<td>In-org customer LWC: <strong>no security review</strong>, deploy-permission gated, LWS protects platform chrome</td>
+<td>The tenant tier: same principle, achieved with viewer-scoped broker + admin gating instead of membranes</td>
+</tr>
+<tr>
+<td>Canvas apps / content domains (<code>*.forceusercontent.com</code>) on separate origins</td>
+<td>Tier 2 iframes + the extensions-origin requirement</td>
+</tr>
+<tr>
+<td>AppExchange security review for cross-tenant distribution</td>
+<td>The review-or-full-sandbox requirement for marketplace code</td>
+</tr>
+<tr>
+<td>(no DOM-less tier)</td>
+<td>Tier 1 — the declarative worker tier is this design's structural advantage: the IR makes "extension emits a spec, platform renders" the seamless path</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sequencing">Sequencing<a class="headerlink" href="#sequencing" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>This design doc</strong> (done) → review, then fold a summary into the TRD when implementation starts.</li>
+<li><strong>Slice 1:</strong> worker-declarative tier — manifest <code>runtime:"worker"</code> validation, bridge protocol v1, worker host in both renderers, blob-worker mode (tenant tier) with the storage caveat documented.</li>
+<li><strong>Slice 2:</strong> runner-iframe full isolation (extensions-origin infrastructure) upgrading slice 1, plus <code>extension.frame</code> for custom-pixel extensions.</li>
+<li><strong>Deferred:</strong> managed same-realm tier, pending a marketplace review process.</li>
+</ol>
 
 
 
@@ -1581,10 +1773,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

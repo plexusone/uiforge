@@ -118,6 +118,9 @@ func renderNamespacePage(ns string, specs []*registry.ComponentSpec) string {
 		writeDataInputs(&b, spec)
 		writeEvents(&b, spec)
 
+		if len(spec.Capabilities) > 0 {
+			fmt.Fprintf(&b, "**Capabilities:** `%s`\n\n", strings.Join(spec.Capabilities, "`, `"))
+		}
 		if len(spec.Actions) > 0 {
 			fmt.Fprintf(&b, "**Actions:** `%s`\n\n", strings.Join(spec.Actions, "`, `"))
 		}
